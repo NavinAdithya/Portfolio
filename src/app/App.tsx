@@ -98,7 +98,7 @@ const CAPABILITIES = [
     color: "#8B5CF6",
     skills: ["Wireshark", "Linux", "TCP/IP", "SIEM", "Cryptography", "Certificate"],
     metric: "Completed",
-    metricUrl: "https://coursera.org/share/2091bfac871198fb0687d73c2f3232b8",
+    certUrl: "https://coursera.org/share/2091bfac871198fb0687d73c2f3232b8",
     desc: "Google Cybersecurity cert · Tata simulation · Active CTF practice.",
   },
   {
@@ -688,30 +688,15 @@ function Capabilities() {
                     >
                       <Icon size={17} style={{ color: cap.color }} />
                     </div>
-                    {cap.metricUrl ? (
-                      <a
-                        href={cap.metricUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[11px] font-medium hover:underline flex items-center gap-1 cursor-pointer"
-                        style={{
-                          color: cap.color,
-                          fontFamily: "'JetBrains Mono', monospace",
-                        }}
-                      >
-                        {cap.metric} <ArrowUpRight size={10} />
-                      </a>
-                    ) : (
-                      <span
-                        className="text-[11px] font-medium"
-                        style={{
-                          color: cap.color,
-                          fontFamily: "'JetBrains Mono', monospace",
-                        }}
-                      >
-                        {cap.metric}
-                      </span>
-                    )}
+                    <span
+                      className="text-[11px] font-medium"
+                      style={{
+                        color: cap.color,
+                        fontFamily: "'JetBrains Mono', monospace",
+                      }}
+                    >
+                      {cap.metric}
+                    </span>
                   </div>
 
                   <h3
@@ -729,15 +714,31 @@ function Capabilities() {
                   </p>
 
                   <div className="flex flex-wrap gap-2">
-                    {cap.skills.map((s) => (
-                      <span
-                        key={s}
-                        className="text-[11px] text-[#667085] group-hover:text-[#B0B7C3] px-2 py-0.5 rounded border border-[rgba(255,255,255,0.05)] transition-colors duration-300"
-                        style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                      >
-                        {s}
-                      </span>
-                    ))}
+                    {cap.skills.map((s) => {
+                      if (s === "Certificate" && cap.certUrl) {
+                        return (
+                          <a
+                            key={s}
+                            href={cap.certUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[11px] text-[#FF823C] hover:text-[#FF5722] px-2 py-0.5 rounded border border-[#FF823C]/30 hover:border-[#FF823C]/60 transition-colors duration-300 flex items-center gap-1"
+                            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                          >
+                            {s} <ArrowUpRight size={10} />
+                          </a>
+                        );
+                      }
+                      return (
+                        <span
+                          key={s}
+                          className="text-[11px] text-[#667085] group-hover:text-[#B0B7C3] px-2 py-0.5 rounded border border-[rgba(255,255,255,0.05)] transition-colors duration-300"
+                          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                        >
+                          {s}
+                        </span>
+                      );
+                    })}
                   </div>
                 </motion.div>
               </Reveal>
