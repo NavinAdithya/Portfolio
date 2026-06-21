@@ -40,9 +40,9 @@ const PROJECTS = [
     details: [
       "Built custom grid console UI for electrical component management.",
       "Transformer gallery with high-performance image optimization.",
-      "SEO-optimised architecture deployed on Netlify for 100% uptime.",
+      "SEO-optimised architecture deployed for 100% uptime.",
     ],
-    tech: ["JavaScript", "Tailwind", "Netlify"],
+    tech: ["JavaScript", "Tailwind"],
     url: "https://www.skenterprisesurapakkam.in/",
     accent: "#8B5CF6",
   },
