@@ -106,7 +106,7 @@ const CAPABILITIES = [
     label: "Cyber Security",
     icon: Shield,
     color: "#8B5CF6",
-    skills: ["Wireshark", "Linux", "TCP/IP", "SIEM", "Cryptography", "Certificate"],
+    skills: ["Wireshark", "Linux", "TCP/IP", "SIEM", "Cryptography"],
     metric: "Completed",
     certUrl: "https://coursera.org/share/2091bfac871198fb0687d73c2f3232b8",
     desc: "Google Cybersecurity cert · Tata simulation · Active CTF practice.",
@@ -753,31 +753,15 @@ function Capabilities() {
                   </motion.p>
 
                   <motion.div layoutId={`tech-${cap.id}`} className="flex flex-wrap gap-2 mt-auto pt-2">
-                    {cap.skills.map((s) => {
-                      if (s === "Certificate" && cap.certUrl) {
-                        return (
-                          <a
-                            key={s}
-                            href={cap.certUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-[11px] text-[#FF823C] hover:text-[#FF5722] px-2 py-0.5 rounded border border-[#FF823C]/30 hover:border-[#FF823C]/60 transition-colors duration-300 flex items-center gap-1"
-                            style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                          >
-                            {s} <ArrowUpRight size={10} />
-                          </a>
-                        );
-                      }
-                      return (
-                        <span
-                          key={s}
-                          className="text-[11px] text-[#667085] group-hover:text-[#B0B7C3] px-2 py-0.5 rounded border border-[rgba(255,255,255,0.05)] transition-colors duration-300"
-                          style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                        >
-                          {s}
-                        </span>
-                      );
-                    })}
+                    {cap.skills.map((s) => (
+                      <span
+                        key={s}
+                        className="text-[11px] text-[#667085] group-hover:text-[#B0B7C3] px-2 py-0.5 rounded border border-[rgba(255,255,255,0.05)] transition-colors duration-300"
+                        style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                      >
+                        {s}
+                      </span>
+                    ))}
                   </motion.div>
                 </motion.div>
               </Reveal>
@@ -882,34 +866,40 @@ function Capabilities() {
                         </p>
                       </div>
                     ))}
+                    
+                    {cap.certUrl && (
+                      <div className="flex items-start gap-3 pt-2">
+                        <div 
+                          className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
+                          style={{ background: `${cap.color}15` }}
+                        >
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={cap.color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                        </div>
+                        <a
+                          href={cap.certUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm md:text-base leading-relaxed font-medium hover:underline flex items-center gap-1.5"
+                          style={{ color: cap.color, fontFamily: "'Inter', sans-serif" }}
+                        >
+                          View Official Certification <ArrowUpRight size={16} />
+                        </a>
+                      </div>
+                    )}
                   </motion.div>
 
                   <motion.div layoutId={`tech-${cap.id}`} className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-[rgba(255,255,255,0.05)]">
-                    {cap.skills.map((s) => {
-                      if (s === "Certificate" && cap.certUrl) {
-                        return (
-                          <a
-                            key={s}
-                            href={cap.certUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-[12px] text-[#FF823C] hover:text-[#FF5722] px-3 py-1.5 rounded-md border border-[#FF823C]/30 hover:border-[#FF823C]/60 transition-colors duration-300 flex items-center gap-1.5 bg-[#FF823C]/5"
-                            style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                          >
-                            {s} <ArrowUpRight size={12} />
-                          </a>
-                        );
-                      }
-                      return (
-                        <span
-                          key={s}
-                          className="text-[12px] text-[#8892b0] px-3 py-1.5 rounded-md border border-[rgba(255,255,255,0.08)] bg-white/[0.02]"
-                          style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                        >
-                          {s}
-                        </span>
-                      );
-                    })}
+                    {cap.skills.map((s) => (
+                      <span
+                        key={s}
+                        className="text-[12px] text-[#8892b0] px-3 py-1.5 rounded-md border border-[rgba(255,255,255,0.08)] bg-white/[0.02]"
+                        style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                      >
+                        {s}
+                      </span>
+                    ))}
                   </motion.div>
                 </motion.div>
               );
