@@ -676,8 +676,19 @@ function SelectedWork() {
 function Capabilities() {
   const [expanded, setExpanded] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (expanded) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [expanded]);
+
   return (
-    <section id="capabilities" className="py-32 px-6">
+    <section id="capabilities" className="py-32 px-6 relative">
       <div className="max-w-[1200px] mx-auto">
         <Reveal>
           <SectionHeader label="Capabilities" title="What I build with." />
@@ -686,13 +697,12 @@ function Capabilities() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
           {CAPABILITIES.map((cap, i) => {
             const Icon = cap.icon;
-            const isExpanded = expanded === cap.id;
             return (
               <Reveal key={cap.id} delay={i * 0.08}>
                 <motion.div
-                  layout
-                  onClick={() => setExpanded(isExpanded ? null : cap.id)}
-                  className="group rounded-xl p-6 cursor-pointer overflow-hidden relative flex flex-col"
+                  layoutId={`card-${cap.id}`}
+                  onClick={() => setExpanded(cap.id)}
+                  className="group rounded-xl p-6 cursor-pointer overflow-hidden relative flex flex-col h-full"
                   style={{
                     background: "rgba(255,255,255,0.02)",
                     border: "1px solid rgba(255,255,255,0.05)",
@@ -704,7 +714,7 @@ function Capabilities() {
                   }}
                   transition={{ layout: { duration: 0.4, type: "spring", bounce: 0.2 } }}
                 >
-                  <motion.div layout className="flex items-start justify-between mb-4">
+                  <motion.div layoutId={`header-${cap.id}`} className="flex items-start justify-between mb-4">
                     <div
                       className="w-9 h-9 rounded-lg flex items-center justify-center"
                       style={{
@@ -715,7 +725,7 @@ function Capabilities() {
                       <Icon size={17} style={{ color: cap.color }} />
                     </div>
                     <motion.span
-                      layout
+                      layoutId={`metric-${cap.id}`}
                       className="text-[11px] font-medium"
                       style={{
                         color: cap.color,
@@ -727,53 +737,22 @@ function Capabilities() {
                   </motion.div>
 
                   <motion.h3
-                    layout
+                    layoutId={`title-${cap.id}`}
                     className="text-white text-base font-semibold mb-2"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {cap.label}
                   </motion.h3>
 
-                  <AnimatePresence initial={false} mode="sync">
-                    {isExpanded ? (
-                      <motion.div
-                        key="expanded"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
-                        className="overflow-hidden"
-                      >
-                        <div className="mb-6 space-y-2 pt-2">
-                          {cap.details.map((detail, idx) => (
-                            <div key={idx} className="flex items-start gap-2">
-                              <span className="text-[10px] mt-1.5" style={{ color: cap.color }}>▹</span>
-                              <p
-                                className="text-[#B0B7C3] text-sm leading-relaxed"
-                                style={{ fontFamily: "'Inter', sans-serif" }}
-                              >
-                                {detail}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    ) : (
-                      <motion.p
-                        key="collapsed"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="text-[#667085] text-sm leading-relaxed mb-5"
-                        style={{ fontFamily: "'Inter', sans-serif" }}
-                      >
-                        {cap.desc}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
+                  <motion.p
+                    layoutId={`desc-${cap.id}`}
+                    className="text-[#667085] text-sm leading-relaxed mb-5"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    {cap.desc}
+                  </motion.p>
 
-                  <motion.div layout className="flex flex-wrap gap-2 mt-auto pt-2">
+                  <motion.div layoutId={`tech-${cap.id}`} className="flex flex-wrap gap-2 mt-auto pt-2">
                     {cap.skills.map((s) => {
                       if (s === "Certificate" && cap.certUrl) {
                         return (
@@ -806,6 +785,138 @@ function Capabilities() {
           })}
         </div>
       </div>
+
+      <AnimatePresence>
+        {expanded && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setExpanded(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto"
+          >
+            {(() => {
+              const cap = CAPABILITIES.find((c) => c.id === expanded);
+              if (!cap) return null;
+              const Icon = cap.icon;
+              return (
+                <motion.div
+                  layoutId={`card-${cap.id}`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="w-full max-w-2xl bg-[#0a0a0a] border border-[rgba(255,255,255,0.08)] rounded-2xl p-8 relative flex flex-col my-auto"
+                  style={{
+                    boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px ${cap.color}20`,
+                  }}
+                  transition={{ layout: { duration: 0.4, type: "spring", bounce: 0.2 } }}
+                >
+                  <button
+                    onClick={() => setExpanded(null)}
+                    className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
+                      <path d="M1 1L13 13M1 13L13 1" />
+                    </svg>
+                  </button>
+
+                  <motion.div layoutId={`header-${cap.id}`} className="flex items-start justify-between mb-6 pr-8">
+                    <div
+                      className="w-12 h-12 rounded-xl flex items-center justify-center"
+                      style={{
+                        background: `${cap.color}15`,
+                        border: `1px solid ${cap.color}30`,
+                      }}
+                    >
+                      <Icon size={24} style={{ color: cap.color }} />
+                    </div>
+                    <motion.span
+                      layoutId={`metric-${cap.id}`}
+                      className="text-[12px] font-medium px-3 py-1 rounded-full border"
+                      style={{
+                        color: cap.color,
+                        borderColor: `${cap.color}30`,
+                        background: `${cap.color}10`,
+                        fontFamily: "'JetBrains Mono', monospace",
+                      }}
+                    >
+                      {cap.metric}
+                    </motion.span>
+                  </motion.div>
+
+                  <motion.h3
+                    layoutId={`title-${cap.id}`}
+                    className="text-white text-2xl font-bold mb-3"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    {cap.label}
+                  </motion.h3>
+
+                  <motion.p
+                    layoutId={`desc-${cap.id}`}
+                    className="text-[#8892b0] text-base leading-relaxed mb-8"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    {cap.desc}
+                  </motion.p>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 0.4 }}
+                    className="mb-10 space-y-4"
+                  >
+                    {cap.details.map((detail, idx) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <div 
+                          className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
+                          style={{ background: `${cap.color}15` }}
+                        >
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={cap.color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                        </div>
+                        <p
+                          className="text-[#ccd6f6] text-sm md:text-base leading-relaxed"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          {detail}
+                        </p>
+                      </div>
+                    ))}
+                  </motion.div>
+
+                  <motion.div layoutId={`tech-${cap.id}`} className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-[rgba(255,255,255,0.05)]">
+                    {cap.skills.map((s) => {
+                      if (s === "Certificate" && cap.certUrl) {
+                        return (
+                          <a
+                            key={s}
+                            href={cap.certUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[12px] text-[#FF823C] hover:text-[#FF5722] px-3 py-1.5 rounded-md border border-[#FF823C]/30 hover:border-[#FF823C]/60 transition-colors duration-300 flex items-center gap-1.5 bg-[#FF823C]/5"
+                            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                          >
+                            {s} <ArrowUpRight size={12} />
+                          </a>
+                        );
+                      }
+                      return (
+                        <span
+                          key={s}
+                          className="text-[12px] text-[#8892b0] px-3 py-1.5 rounded-md border border-[rgba(255,255,255,0.08)] bg-white/[0.02]"
+                          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                        >
+                          {s}
+                        </span>
+                      );
+                    })}
+                  </motion.div>
+                </motion.div>
+              );
+            })()}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
