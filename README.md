@@ -2,7 +2,6 @@
 
 A highly interactive, premium developer portfolio built with React, TypeScript, and Framer Motion. Designed to showcase modern web engineering, cybersecurity expertise, and production-ready deployments.
 
-![Portfolio Preview](./public/1000243888.jpg) <!-- Update this path with a real screenshot if needed -->
 
 ## ✨ Features
 
