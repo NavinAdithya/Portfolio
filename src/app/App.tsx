@@ -551,8 +551,19 @@ function Hero() {
 function SelectedWork() {
   const [expanded, setExpanded] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (expanded) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [expanded]);
+
   return (
-    <section id="work" className="py-32 px-6">
+    <section id="work" className="py-32 px-6 relative">
       <div className="max-w-[1200px] mx-auto">
         <Reveal>
           <SectionHeader label="Selected Work" title="Shipped products." />
@@ -560,13 +571,12 @@ function SelectedWork() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
           {PROJECTS.map((p, i) => {
-            const isExpanded = expanded === p.name;
             return (
               <Reveal key={p.name} delay={i * 0.1}>
                 <motion.div
-                  layout
-                  onClick={() => setExpanded(isExpanded ? null : p.name)}
-                  className="group rounded-xl p-6 flex flex-col transition-all duration-300 cursor-pointer overflow-hidden relative"
+                  layoutId={`project-card-${p.name}`}
+                  onClick={() => setExpanded(p.name)}
+                  className="group rounded-xl p-6 flex flex-col transition-all duration-300 cursor-pointer overflow-hidden relative h-full"
                   style={{
                     background: "rgba(255,255,255,0.02)",
                     border: "1px solid rgba(255,255,255,0.05)",
@@ -579,7 +589,7 @@ function SelectedWork() {
                   transition={{ layout: { duration: 0.4, type: "spring", bounce: 0.2 } }}
                 >
                   {/* Status */}
-                  <motion.div layout className="flex items-center justify-between mb-6">
+                  <motion.div layoutId={`project-header-${p.name}`} className="flex items-center justify-between mb-6">
                     <span
                       className="w-2 h-2 rounded-full"
                       style={{ background: p.accent }}
@@ -592,7 +602,7 @@ function SelectedWork() {
 
                   {/* Title */}
                   <motion.h3
-                    layout
+                    layoutId={`project-title-${p.name}`}
                     className="text-white text-lg font-semibold mb-3 leading-tight"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
@@ -600,57 +610,16 @@ function SelectedWork() {
                   </motion.h3>
 
                   {/* Detailed Description Expansion */}
-                  <AnimatePresence initial={false} mode="sync">
-                    {isExpanded ? (
-                      <motion.div
-                        key="expanded"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
-                        className="overflow-hidden"
-                      >
-                        <div className="mb-6 space-y-2 pt-2">
-                          {p.details.map((detail, idx) => (
-                            <div key={idx} className="flex items-start gap-2">
-                              <span className="text-[#FF823C] text-xs mt-1">▹</span>
-                              <p
-                                className="text-[#B0B7C3] text-sm leading-relaxed"
-                                style={{ fontFamily: "'Inter', sans-serif" }}
-                              >
-                                {detail}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                        <a
-                          href={p.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)] text-white text-xs font-medium rounded-md transition-colors"
-                          style={{ fontFamily: "'Inter', sans-serif" }}
-                        >
-                          View Live Project <ArrowUpRight size={14} />
-                        </a>
-                      </motion.div>
-                    ) : (
-                      <motion.p
-                        key="collapsed"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="text-[#667085] text-sm leading-relaxed mb-6 line-clamp-2"
-                        style={{ fontFamily: "'Inter', sans-serif" }}
-                      >
-                        {p.tagline}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
+                  <motion.p
+                    layoutId={`project-desc-${p.name}`}
+                    className="text-[#667085] text-sm leading-relaxed mb-6 line-clamp-2"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    {p.tagline}
+                  </motion.p>
 
                   {/* Tech */}
-                  <motion.div layout className="flex flex-wrap gap-x-3 gap-y-1 mt-auto pt-2">
+                  <motion.div layoutId={`project-tech-${p.name}`} className="flex flex-wrap gap-x-3 gap-y-1 mt-auto pt-2">
                     {p.tech.map((t) => (
                       <span
                         key={t}
@@ -667,6 +636,120 @@ function SelectedWork() {
           })}
         </div>
       </div>
+
+      <AnimatePresence>
+        {expanded && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setExpanded(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto"
+          >
+            {(() => {
+              const p = PROJECTS.find((project) => project.name === expanded);
+              if (!p) return null;
+              return (
+                <motion.div
+                  layoutId={`project-card-${p.name}`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="w-full max-w-2xl bg-[#0a0a0a] border border-[rgba(255,255,255,0.08)] rounded-2xl p-8 relative flex flex-col my-auto"
+                  style={{
+                    boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px ${p.accent}20`,
+                  }}
+                  transition={{ layout: { duration: 0.4, type: "spring", bounce: 0.2 } }}
+                >
+                  <button
+                    onClick={() => setExpanded(null)}
+                    className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
+                      <path d="M1 1L13 13M1 13L13 1" />
+                    </svg>
+                  </button>
+
+                  <motion.div layoutId={`project-header-${p.name}`} className="flex items-center justify-between mb-6 pr-8">
+                    <span
+                      className="w-3 h-3 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+                      style={{ background: p.accent, boxShadow: `0 0 15px ${p.accent}50` }}
+                    />
+                  </motion.div>
+
+                  <motion.h3
+                    layoutId={`project-title-${p.name}`}
+                    className="text-white text-3xl font-bold mb-4 leading-tight"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    {p.name}
+                  </motion.h3>
+
+                  <motion.p
+                    layoutId={`project-desc-${p.name}`}
+                    className="text-[#8892b0] text-base leading-relaxed mb-8"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    {p.tagline}
+                  </motion.p>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 0.4 }}
+                    className="mb-8 space-y-4"
+                  >
+                    {p.details.map((detail, idx) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <div 
+                          className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
+                          style={{ background: `${p.accent}15` }}
+                        >
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={p.accent} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                        </div>
+                        <p
+                          className="text-[#ccd6f6] text-sm md:text-base leading-relaxed"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          {detail}
+                        </p>
+                      </div>
+                    ))}
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    <a
+                      href={p.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 mb-8 hover:bg-white/5 text-white text-sm font-medium rounded-lg transition-colors border border-white/10 w-fit"
+                      style={{ fontFamily: "'Inter', sans-serif", background: `${p.accent}15`, borderColor: `${p.accent}30`, color: p.accent }}
+                    >
+                      View Live Project <ArrowUpRight size={16} />
+                    </a>
+                  </motion.div>
+
+                  <motion.div layoutId={`project-tech-${p.name}`} className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-[rgba(255,255,255,0.05)]">
+                    {p.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="text-[12px] text-[#8892b0] px-3 py-1.5 rounded-md border border-[rgba(255,255,255,0.08)] bg-white/[0.02]"
+                        style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </motion.div>
+                </motion.div>
+              );
+            })()}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
