@@ -82,9 +82,9 @@ const CAPABILITIES = [
     metric: "3 shipped",
     desc: "Production UIs — from HR dashboards to QA platforms.",
     details: [
-      "Building highly interactive and responsive web applications.",
-      "Optimizing performance for fast load times and smooth animations.",
-      "Deploying scalable, enterprise-grade production systems.",
+      "Architecting responsive, high-converting React applications tailored for enterprise scale.",
+      "Implementing pixel-perfect, accessible UI/UX with modern Tailwind CSS and Framer Motion.",
+      "Optimizing Web Vitals and Lighthouse scores for maximum SEO visibility and user retention.",
     ]
   },
   {
@@ -96,9 +96,9 @@ const CAPABILITIES = [
     metric: "3 live",
     desc: "Scalable frontend architecture with real deployment pipelines.",
     details: [
-      "Designing reusable and maintainable component libraries.",
-      "Implementing robust state management with React hooks and Zustand.",
-      "Setting up automated CI/CD pipelines via GitHub Actions.",
+      "Engineering robust component libraries and scalable architectures for long-term maintainability.",
+      "Integrating seamless state management for complex, data-heavy web applications.",
+      "Establishing fully automated CI/CD deployment pipelines ensuring zero-downtime releases.",
     ]
   },
   {
@@ -111,9 +111,9 @@ const CAPABILITIES = [
     certUrl: "https://coursera.org/share/2091bfac871198fb0687d73c2f3232b8",
     desc: "Google Cybersecurity cert · Tata simulation · Active CTF practice.",
     details: [
-      "Analyzing network traffic to detect anomalies using Wireshark.",
-      "Configuring and monitoring SIEM tools for real-time threat detection.",
-      "Applying advanced cryptographic principles to secure systems.",
+      "Conducting comprehensive vulnerability assessments and active threat modeling.",
+      "Securing web architectures against top OWASP vulnerabilities and data breaches.",
+      "Implementing robust authentication systems, RBAC, and strict compliance protocols.",
     ]
   },
   {
@@ -125,9 +125,9 @@ const CAPABILITIES = [
     metric: "2 systems",
     desc: "Agentic workflows, LLM integrations, automation pipelines.",
     details: [
-      "Building multi-agent workflows using LangChain and Flowise.",
-      "Automating complex business processes with n8n.",
-      "Integrating cutting-edge LLMs (Claude, Gemini) into practical applications.",
+      "Developing intelligent multi-agent AI workflows utilizing LangChain and Flowise.",
+      "Automating complex business processes with custom n8n pipelines to eliminate manual labor.",
+      "Integrating state-of-the-art LLMs (Claude, Gemini) into existing platforms for next-gen features.",
     ]
   },
 ];
