@@ -81,6 +81,11 @@ const CAPABILITIES = [
     skills: ["React", "TypeScript", "Tailwind CSS", "Vite", "Responsive Systems"],
     metric: "3 shipped",
     desc: "Production UIs — from HR dashboards to QA platforms.",
+    details: [
+      "Building highly interactive and responsive web applications.",
+      "Optimizing performance for fast load times and smooth animations.",
+      "Deploying scalable, enterprise-grade production systems.",
+    ]
   },
   {
     id: "frontend",
@@ -90,6 +95,11 @@ const CAPABILITIES = [
     skills: ["Component Architecture", "State Management", "CI/CD", "Performance"],
     metric: "3 live",
     desc: "Scalable frontend architecture with real deployment pipelines.",
+    details: [
+      "Designing reusable and maintainable component libraries.",
+      "Implementing robust state management with React hooks and Zustand.",
+      "Setting up automated CI/CD pipelines via GitHub Actions.",
+    ]
   },
   {
     id: "security",
@@ -100,6 +110,11 @@ const CAPABILITIES = [
     metric: "Completed",
     certUrl: "https://coursera.org/share/2091bfac871198fb0687d73c2f3232b8",
     desc: "Google Cybersecurity cert · Tata simulation · Active CTF practice.",
+    details: [
+      "Analyzing network traffic to detect anomalies using Wireshark.",
+      "Configuring and monitoring SIEM tools for real-time threat detection.",
+      "Applying advanced cryptographic principles to secure systems.",
+    ]
   },
   {
     id: "automation",
@@ -109,6 +124,11 @@ const CAPABILITIES = [
     skills: ["Claude API", "Gemini API", "n8n", "Flowise", "LangChain"],
     metric: "2 systems",
     desc: "Agentic workflows, LLM integrations, automation pipelines.",
+    details: [
+      "Building multi-agent workflows using LangChain and Flowise.",
+      "Automating complex business processes with n8n.",
+      "Integrating cutting-edge LLMs (Claude, Gemini) into practical applications.",
+    ]
   },
 ];
 
@@ -654,6 +674,8 @@ function SelectedWork() {
 // ─── Capabilities ────────────────────────────────────────────────────────────
 
 function Capabilities() {
+  const [expanded, setExpanded] = useState<string | null>(null);
+
   return (
     <section id="capabilities" className="py-32 px-6">
       <div className="max-w-[1200px] mx-auto">
@@ -661,13 +683,16 @@ function Capabilities() {
           <SectionHeader label="Capabilities" title="What I build with." />
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
           {CAPABILITIES.map((cap, i) => {
             const Icon = cap.icon;
+            const isExpanded = expanded === cap.id;
             return (
               <Reveal key={cap.id} delay={i * 0.08}>
                 <motion.div
-                  className="group rounded-xl p-6 cursor-default h-full"
+                  layout
+                  onClick={() => setExpanded(isExpanded ? null : cap.id)}
+                  className="group rounded-xl p-6 cursor-pointer overflow-hidden relative flex flex-col"
                   style={{
                     background: "rgba(255,255,255,0.02)",
                     border: "1px solid rgba(255,255,255,0.05)",
@@ -675,10 +700,11 @@ function Capabilities() {
                   whileHover={{
                     borderColor: `${cap.color}25`,
                     background: `${cap.color}04`,
+                    y: -2,
                   }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ layout: { duration: 0.4, type: "spring", bounce: 0.2 } }}
                 >
-                  <div className="flex items-start justify-between mb-4">
+                  <motion.div layout className="flex items-start justify-between mb-4">
                     <div
                       className="w-9 h-9 rounded-lg flex items-center justify-center"
                       style={{
@@ -688,7 +714,8 @@ function Capabilities() {
                     >
                       <Icon size={17} style={{ color: cap.color }} />
                     </div>
-                    <span
+                    <motion.span
+                      layout
                       className="text-[11px] font-medium"
                       style={{
                         color: cap.color,
@@ -696,24 +723,57 @@ function Capabilities() {
                       }}
                     >
                       {cap.metric}
-                    </span>
-                  </div>
+                    </motion.span>
+                  </motion.div>
 
-                  <h3
+                  <motion.h3
+                    layout
                     className="text-white text-base font-semibold mb-2"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {cap.label}
-                  </h3>
+                  </motion.h3>
 
-                  <p
-                    className="text-[#667085] text-sm leading-relaxed mb-5"
-                    style={{ fontFamily: "'Inter', sans-serif" }}
-                  >
-                    {cap.desc}
-                  </p>
+                  <AnimatePresence initial={false} mode="sync">
+                    {isExpanded ? (
+                      <motion.div
+                        key="expanded"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="mb-6 space-y-2 pt-2">
+                          {cap.details.map((detail, idx) => (
+                            <div key={idx} className="flex items-start gap-2">
+                              <span className="text-[10px] mt-1.5" style={{ color: cap.color }}>▹</span>
+                              <p
+                                className="text-[#B0B7C3] text-sm leading-relaxed"
+                                style={{ fontFamily: "'Inter', sans-serif" }}
+                              >
+                                {detail}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.p
+                        key="collapsed"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="text-[#667085] text-sm leading-relaxed mb-5"
+                        style={{ fontFamily: "'Inter', sans-serif" }}
+                      >
+                        {cap.desc}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
 
-                  <div className="flex flex-wrap gap-2">
+                  <motion.div layout className="flex flex-wrap gap-2 mt-auto pt-2">
                     {cap.skills.map((s) => {
                       if (s === "Certificate" && cap.certUrl) {
                         return (
