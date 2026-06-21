@@ -799,7 +799,7 @@ function Capabilities() {
                         </span>
                       );
                     })}
-                  </div>
+                  </motion.div>
                 </motion.div>
               </Reveal>
             );
