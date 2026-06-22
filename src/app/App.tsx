@@ -35,6 +35,30 @@ const NAV_LINKS = [
 
 const PROJECTS = [
   {
+    name: "Eye Ease - Website",
+    tagline: "Hackathon project for Dr. Agarwal's Eye Hospital enhancing eye care accessibility.",
+    details: [
+      "Designed intuitive layouts and workflows for hospital patients.",
+      "Implemented responsive components for desktop & mobile.",
+      "Added interactive elements for a smooth user experience.",
+    ],
+    tech: ["React", "Vite", "Tailwind CSS"],
+    url: "https://navinadithya.github.io/Eye_Ease_Frontend_Website/",
+    accent: "#3B82F6",
+  },
+  {
+    name: "Eye Ease - Android UI/UX",
+    tagline: "Android frontend interface for the Eye Ease hackathon project.",
+    details: [
+      "Designed an intuitive mobile app interface for patients.",
+      "Focused on clean design principles and usability.",
+      "Ensured accessibility and a seamless digital journey.",
+    ],
+    tech: ["UI/UX", "Frontend"],
+    url: "https://navinadithya.github.io/Eye_Ease_UIUX_For_Android/",
+    accent: "#10B981",
+  },
+  {
     name: "SK Enterprises",
     tagline: "Electrical contractor site with grid console UI, transformer gallery, and SEO-optimised deploy.",
     details: [
@@ -79,7 +103,7 @@ const CAPABILITIES = [
     icon: Layers,
     color: "#FF823C",
     skills: ["React", "TypeScript", "Tailwind CSS", "Vite", "Responsive Systems"],
-    metric: "3 shipped",
+    metric: "5 shipped",
     desc: "Production UIs — from HR dashboards to QA platforms.",
     details: [
       "Architecting responsive, high-converting React applications tailored for enterprise scale.",
@@ -93,7 +117,7 @@ const CAPABILITIES = [
     icon: Cpu,
     color: "#FF823C",
     skills: ["Component Architecture", "State Management", "CI/CD", "Performance"],
-    metric: "3 live",
+    metric: "5 live",
     desc: "Scalable frontend architecture with real deployment pipelines.",
     details: [
       "Engineering robust component libraries and scalable architectures for long-term maintainability.",
@@ -156,6 +180,14 @@ const TIMELINE = [
     detail: "Requirements QA · Electrical contractor site",
     status: "done" as const,
     color: "#FF823C",
+  },
+  {
+    period: "2024",
+    title: "Eye Ease (Web & App)",
+    org: "Shipped",
+    detail: "Hackathon project for Dr. Agarwal's Eye Hospital",
+    status: "done" as const,
+    color: "#3B82F6",
   },
   {
     period: "2024",
