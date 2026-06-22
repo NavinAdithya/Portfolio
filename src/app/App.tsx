@@ -320,9 +320,6 @@ function Nav() {
   return (
     <motion.header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b"
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       style={{
         background: scrolled ? "rgba(10,10,10,0.75)" : "transparent",
         backdropFilter: scrolled ? "blur(24px) saturate(1.5)" : "none",
@@ -363,22 +360,32 @@ function Nav() {
         {/* Right — Status + CTA */}
         <div className="hidden md:flex items-center gap-5">
           <motion.div 
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-full border cursor-default transition-colors duration-500 ${scrolled ? "bg-[rgba(255,255,255,0.05)] border-[rgba(255,255,255,0.05)]" : "bg-[#f5f5f5] border-black/5"}`}
-            whileHover={{ scale: 1.05 }}
+            className={`relative flex items-center gap-2 px-4 py-1.5 rounded-full border cursor-default overflow-hidden transition-colors duration-500 ${scrolled ? "bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.1)] shadow-[0_0_15px_rgba(255,255,255,0.02)]" : "bg-black/[0.02] border-black/10 shadow-[0_2px_10px_rgba(0,0,0,0.02)]"}`}
+            whileHover="hover"
+            initial="initial"
           >
-            <span className={`text-[10px] uppercase tracking-widest font-semibold ${scrolled ? "text-[#B0B7C3]" : "text-[#666666]"}`} style={{ fontFamily: "'Inter', sans-serif" }}>
-              Available
-            </span>
+            {/* Shimmer Sweep Effect */}
             <motion.div
-              className="w-1.5 h-1.5 rounded-full bg-[#27C93F] shadow-[0_0_8px_rgba(39,201,63,0.6)] animate-pulse"
+              className={`absolute top-0 bottom-0 w-[150%] bg-gradient-to-r from-transparent ${scrolled ? "via-white/10" : "via-black/5"} to-transparent skew-x-[-25deg]`}
+              variants={{
+                initial: { x: "-100%" },
+                hover: { x: "100%" }
+              }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
             />
+            
+            <div className="relative z-10 flex items-center gap-2.5">
+              <span className={`text-[10px] uppercase tracking-widest font-semibold ${scrolled ? "text-[#E0E0E0]" : "text-[#444444]"}`} style={{ fontFamily: "'Inter', sans-serif" }}>
+                Available
+              </span>
+            </div>
           </motion.div>
 
           <MagneticButton
             onClick={() => scrollTo("#contact")}
             className="px-5 py-2 rounded-full bg-[#FF823C] text-white text-xs font-bold tracking-wide hover:scale-105 transition-transform duration-300 cursor-pointer shadow-[0_4px_15px_rgba(255,130,60,0.3)]"
           >
-            Start Project
+            Hire Me
           </MagneticButton>
         </div>
 
@@ -437,9 +444,29 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 
 function Hero() {
   const scrollTo = useScrollTo();
+  const { scrollY } = useScroll();
+  const yRange = 800; // Distance to scroll for full split
+  const splitProgress = useTransform(scrollY, [0, yRange], [0, 100]);
+  
+  // Horizontal slice: top half goes UP, bottom half goes DOWN
+  const topY = useTransform(splitProgress, (v) => `-${v}%`);
+  const bottomY = useTransform(splitProgress, (v) => `${v}%`);
+  
+  // 3D transition effects
+  const scale = useTransform(splitProgress, [0, 100], [1, 0.85]);
+  const rotateXTop = useTransform(splitProgress, [0, 100], [0, 15]);
+  const rotateXBottom = useTransform(splitProgress, [0, 100], [0, -15]);
+  
+  // Motion blur and glassmorphism fade
+  const blurValue = useTransform(splitProgress, [0, 50, 100], [0, 6, 12]);
+  const filter = useTransform(blurValue, (v) => `blur(${v}px)`);
+  const opacity = useTransform(splitProgress, [0, 80, 100], [1, 0.5, 0]);
 
-  return (
-    <section id="hero" className="relative min-h-[95vh] flex items-center px-6 pt-20 pb-24 bg-white text-[#1A1A1A] overflow-hidden rounded-b-[40px] lg:rounded-b-[80px] shadow-[0_30px_60px_rgba(0,0,0,0.3)] z-20">
+  const display = useTransform(scrollY, (v) => v > yRange + 100 ? "none" : "block");
+  const pointerEvents = useTransform(scrollY, (v) => v > 50 ? "none" : "auto") as any;
+
+  const HeroContent = () => (
+    <div className="relative min-h-[95vh] flex items-center px-6 pt-20 pb-24 bg-white text-[#1A1A1A] overflow-hidden rounded-b-[40px] lg:rounded-b-[80px] shadow-[0_30px_60px_rgba(0,0,0,0.3)] z-20">
       <div className="max-w-[1200px] w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Left Content */}
         <div className="relative z-10 pt-10 lg:pt-0">
@@ -542,6 +569,35 @@ function Hero() {
           <IdentityCard />
         </div>
       </div>
+    </div>
+  );
+
+  return (
+    <section id="hero" className="relative">
+      <div style={{ height: "800px" }} /> {/* Spacer to allow scrolling past the fixed hero */}
+      <motion.div style={{ display, pointerEvents, perspective: "1500px" }} className="fixed top-0 left-0 right-0 z-40">
+        
+        {/* Top Curtain */}
+        <motion.div 
+          style={{ y: topY, scale, rotateX: rotateXTop, filter, opacity, clipPath: "inset(0 0 50% 0)", transformOrigin: "bottom center" }} 
+          className="absolute top-0 left-0 right-0"
+        >
+          <HeroContent />
+          {/* Glass edge */}
+          <div className="absolute top-[calc(50%-1px)] left-0 right-0 h-[1px] bg-white/30 shadow-[0_0_30px_rgba(255,255,255,0.8)] backdrop-blur-md" />
+        </motion.div>
+
+        {/* Bottom Curtain */}
+        <motion.div 
+          style={{ y: bottomY, scale, rotateX: rotateXBottom, filter, opacity, clipPath: "inset(50% 0 0 0)", transformOrigin: "top center" }} 
+          className="absolute top-0 left-0 right-0"
+        >
+          <HeroContent />
+          {/* Glass edge */}
+          <div className="absolute top-[50%] left-0 right-0 h-[1px] bg-white/30 shadow-[0_0_30px_rgba(255,255,255,0.8)] backdrop-blur-md" />
+        </motion.div>
+
+      </motion.div>
     </section>
   );
 }
@@ -563,28 +619,32 @@ function SelectedWork() {
   }, [expanded]);
 
   return (
-    <section id="work" className="py-32 px-6 relative">
+    <section id="work" className="py-32 px-6 relative h-full overflow-y-auto">
       <div className="max-w-[1200px] mx-auto">
         <Reveal>
           <SectionHeader label="Selected Work" title="Shipped products." />
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start" style={{ perspective: "1000px" }}>
           {PROJECTS.map((p, i) => {
             return (
               <Reveal key={p.name} delay={i * 0.1}>
                 <motion.div
                   layoutId={`project-card-${p.name}`}
                   onClick={() => setExpanded(p.name)}
-                  className="group rounded-xl p-6 flex flex-col transition-all duration-300 cursor-pointer overflow-hidden relative h-full"
+                  className="group rounded-xl p-6 flex flex-col cursor-pointer overflow-hidden relative h-full backdrop-blur-md"
                   style={{
-                    background: "rgba(255,255,255,0.02)",
-                    border: "1px solid rgba(255,255,255,0.05)",
+                    background: "rgba(255,255,255,0.03)",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    transformStyle: "preserve-3d",
                   }}
                   whileHover={{
-                    y: -4,
-                    borderColor: `${p.accent}30`,
-                    boxShadow: `0 8px 40px ${p.accent}08`,
+                    y: -8,
+                    scale: 1.02,
+                    rotateX: 2,
+                    rotateY: -2,
+                    borderColor: `${p.accent}50`,
+                    boxShadow: `0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)`,
                   }}
                   transition={{ layout: { duration: 0.4, type: "spring", bounce: 0.2 } }}
                 >
@@ -603,7 +663,7 @@ function SelectedWork() {
                   {/* Title */}
                   <motion.h3
                     layoutId={`project-title-${p.name}`}
-                    className="text-white text-lg font-semibold mb-3 leading-tight"
+                    className="text-white text-base font-semibold mb-3 leading-tight"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {p.name}
@@ -612,7 +672,7 @@ function SelectedWork() {
                   {/* Detailed Description Expansion */}
                   <motion.p
                     layoutId={`project-desc-${p.name}`}
-                    className="text-[#667085] text-sm leading-relaxed mb-6 line-clamp-2"
+                    className="text-[#667085] text-xs leading-relaxed mb-6 line-clamp-2"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {p.tagline}
@@ -644,7 +704,7 @@ function SelectedWork() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setExpanded(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-md overflow-y-auto"
           >
             {(() => {
               const p = PROJECTS.find((project) => project.name === expanded);
@@ -653,9 +713,9 @@ function SelectedWork() {
                 <motion.div
                   layoutId={`project-card-${p.name}`}
                   onClick={(e) => e.stopPropagation()}
-                  className="w-full max-w-2xl bg-[#0a0a0a] border border-[rgba(255,255,255,0.08)] rounded-2xl p-8 relative flex flex-col my-auto"
+                  className="w-full max-w-2xl bg-[rgba(255,255,255,0.03)] backdrop-blur-3xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-8 relative flex flex-col my-auto"
                   style={{
-                    boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px ${p.accent}20`,
+                    boxShadow: `0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 0 1px ${p.accent}30`,
                   }}
                   transition={{ layout: { duration: 0.4, type: "spring", bounce: 0.2 } }}
                 >
@@ -677,7 +737,7 @@ function SelectedWork() {
 
                   <motion.h3
                     layoutId={`project-title-${p.name}`}
-                    className="text-white text-3xl font-bold mb-4 leading-tight"
+                    className="text-white text-2xl font-bold mb-4 leading-tight"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {p.name}
@@ -685,7 +745,7 @@ function SelectedWork() {
 
                   <motion.p
                     layoutId={`project-desc-${p.name}`}
-                    className="text-[#8892b0] text-base leading-relaxed mb-8"
+                    className="text-[#8892b0] text-sm leading-relaxed mb-8"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {p.tagline}
@@ -771,13 +831,13 @@ function Capabilities() {
   }, [expanded]);
 
   return (
-    <section id="capabilities" className="py-32 px-6 relative">
+    <section id="capabilities" className="py-32 px-6 relative h-full overflow-y-auto bg-[#161616]">
       <div className="max-w-[1200px] mx-auto">
         <Reveal>
           <SectionHeader label="Capabilities" title="What I build with." />
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start" style={{ perspective: "1000px" }}>
           {CAPABILITIES.map((cap, i) => {
             const Icon = cap.icon;
             return (
@@ -785,15 +845,20 @@ function Capabilities() {
                 <motion.div
                   layoutId={`card-${cap.id}`}
                   onClick={() => setExpanded(cap.id)}
-                  className="group rounded-xl p-6 cursor-pointer overflow-hidden relative flex flex-col h-full"
+                  className="group rounded-xl p-6 cursor-pointer overflow-hidden relative flex flex-col h-full backdrop-blur-md"
                   style={{
-                    background: "rgba(255,255,255,0.02)",
-                    border: "1px solid rgba(255,255,255,0.05)",
+                    background: "rgba(255,255,255,0.03)",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    transformStyle: "preserve-3d",
                   }}
                   whileHover={{
-                    borderColor: `${cap.color}25`,
-                    background: `${cap.color}04`,
-                    y: -2,
+                    borderColor: `${cap.color}50`,
+                    background: `${cap.color}10`,
+                    y: -8,
+                    scale: 1.02,
+                    rotateX: 2,
+                    rotateY: -2,
+                    boxShadow: `0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)`,
                   }}
                   transition={{ layout: { duration: 0.4, type: "spring", bounce: 0.2 } }}
                 >
@@ -821,7 +886,7 @@ function Capabilities() {
 
                   <motion.h3
                     layoutId={`title-${cap.id}`}
-                    className="text-white text-base font-semibold mb-2"
+                    className="text-white text-sm font-semibold mb-2"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {cap.label}
@@ -829,7 +894,7 @@ function Capabilities() {
 
                   <motion.p
                     layoutId={`desc-${cap.id}`}
-                    className="text-[#667085] text-sm leading-relaxed mb-5"
+                    className="text-[#667085] text-xs leading-relaxed mb-5"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {cap.desc}
@@ -860,7 +925,7 @@ function Capabilities() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setExpanded(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-md overflow-y-auto"
           >
             {(() => {
               const cap = CAPABILITIES.find((c) => c.id === expanded);
@@ -870,9 +935,9 @@ function Capabilities() {
                 <motion.div
                   layoutId={`card-${cap.id}`}
                   onClick={(e) => e.stopPropagation()}
-                  className="w-full max-w-2xl bg-[#0a0a0a] border border-[rgba(255,255,255,0.08)] rounded-2xl p-8 relative flex flex-col my-auto"
+                  className="w-full max-w-2xl bg-[rgba(255,255,255,0.03)] backdrop-blur-3xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-8 relative flex flex-col my-auto"
                   style={{
-                    boxShadow: `0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px ${cap.color}20`,
+                    boxShadow: `0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 0 1px ${cap.color}30`,
                   }}
                   transition={{ layout: { duration: 0.4, type: "spring", bounce: 0.2 } }}
                 >
@@ -1284,22 +1349,92 @@ function Footer() {
   );
 }
 
+// ─── StackingCardTransition ───────────────────────────────────────────────────
+function StackingCardTransition({ children }: { children: React.ReactNode[] }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const smooth = useSpring(scrollYProgress, {
+    stiffness: 55,
+    damping: 18,
+    restDelta: 0.001,
+  });
+
+  // Base card subtly shrinks, dims, and blurs into the background as the next card covers it
+  const scale = useTransform(smooth, [0.5, 1.0], [1, 0.92]);
+  const opacity = useTransform(smooth, [0.6, 1.0], [1, 0.4]);
+  const blur = useTransform(smooth, [0.5, 1.0], ["blur(0px)", "blur(12px)"]);
+
+  return (
+    <div ref={containerRef} className="relative w-full">
+      {/* 
+        Base Card: Sticky to the top. 
+        It locks into the viewport exactly like a background.
+      */}
+      <div className="sticky top-0 z-0 w-full h-screen overflow-hidden">
+        <motion.div
+          className="h-full w-full flex flex-col justify-center"
+          style={{
+            scale,
+            opacity,
+            filter: blur,
+            transformOrigin: "top center",
+            willChange: "transform, opacity, filter",
+          }}
+        >
+          {children[0]}
+        </motion.div>
+      </div>
+
+      {/* 
+        Rising Card: Natively scrolls up over the sticky base card. 
+        Like a car window closing.
+      */}
+      <div
+        className="relative z-10 w-full bg-[#161616]"
+        style={{
+          borderTopLeftRadius: "40px",
+          borderTopRightRadius: "40px",
+          boxShadow: "0px -30px 80px rgba(0,0,0,0.8)",
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
+        {children[1]}
+      </div>
+    </div>
+  );
+}
+
 // ─── App ─────────────────────────────────────────────────────────────────────
 
 export default function App() {
   useLenis();
+  const { scrollY } = useScroll();
+  const yRange = 800;
+  const mainY = useTransform(scrollY, [0, yRange], [-yRange, 0]);
+  const opacity = useTransform(scrollY, [0, 400, yRange], [0, 0.2, 1]);
+  const scale = useTransform(scrollY, [0, yRange], [0.85, 1]);
 
   return (
-    <div className="min-h-screen bg-[#161616] text-white">
+    <div className="min-h-screen bg-[#161616] text-white overflow-hidden">
       <NoiseOverlay />
       <Nav />
-      <main className="relative z-10 bg-[#161616]">
-        <Hero />
-        <SelectedWork />
-        <Capabilities />
+      <Hero />
+      <motion.main 
+        style={{ y: mainY, opacity, scale }}
+        className="relative z-10 bg-[#161616] origin-center"
+      >
+        <StackingCardTransition>
+          <SelectedWork />
+          <Capabilities />
+        </StackingCardTransition>
         <Timeline />
         <Contact />
-      </main>
+      </motion.main>
       <Footer />
     </div>
   );
