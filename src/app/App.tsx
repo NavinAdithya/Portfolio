@@ -166,7 +166,7 @@ const TIMELINE = [
     color: "#FF823C",
   },
   {
-    period: "2024",
+    period: "2026",
     title: "SK Bloom HR Solutions",
     org: "Shipped",
     detail: "Enterprise HR platform · Live on Netlify",
@@ -174,7 +174,7 @@ const TIMELINE = [
     color: "#FF823C",
   },
   {
-    period: "2024",
+    period: "2026",
     title: "ReqWise + SK Enterprises",
     org: "Shipped",
     detail: "Requirements QA · Electrical contractor site",
@@ -182,7 +182,7 @@ const TIMELINE = [
     color: "#FF823C",
   },
   {
-    period: "2024",
+    period: "2026",
     title: "Eye Ease (Web & App)",
     org: "Shipped",
     detail: "Hackathon project for Dr. Agarwal's Eye Hospital",
@@ -190,7 +190,7 @@ const TIMELINE = [
     color: "#3B82F6",
   },
   {
-    period: "2024",
+    period: "2025",
     title: "Google Cybersecurity Certificate",
     org: "Coursera",
     detail: "Professional certificate + Tata simulation",
@@ -225,13 +225,13 @@ function Reveal({
   className?: string;
 }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-50px" });
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-      animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, y: 40, filter: "blur(12px)", scale: 0.96 }}
+      animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)", scale: 1 } : {}}
+      transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
       {children}
@@ -551,10 +551,9 @@ function Hero() {
               View Work <ArrowUpRight size={15} />
             </MagneticButton>
             <a
-              href="/Navin_Adithya_Resume (1).docx"
-              download="Navin_Adithya_Resume.docx"
+              href={`${import.meta.env.BASE_URL}Navin_Adithya_Resume.pdf`}
               target="_blank"
-              rel="noreferrer"
+              rel="noreferrer noopener"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-[#E5E5E5] text-[#1A1A1A] text-sm font-medium rounded-lg hover:border-[#CCCCCC] hover:bg-zinc-50 transition-all duration-200 cursor-pointer"
             >
               Resume
@@ -651,8 +650,12 @@ function SelectedWork() {
   }, [expanded]);
 
   return (
-    <section id="work" className="py-32 px-6 relative h-full overflow-y-auto">
-      <div className="max-w-[1200px] mx-auto">
+    <section id="work" className="py-32 px-6 relative">
+      {/* Background Glows */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1200px] h-[600px] bg-[#3B82F6] opacity-[0.04] blur-[150px] pointer-events-none rounded-full" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#8B5CF6] opacity-[0.03] blur-[150px] pointer-events-none rounded-full" />
+
+      <div className="max-w-[1200px] mx-auto relative z-10">
         <Reveal>
           <SectionHeader label="Selected Work" title="Shipped products." />
         </Reveal>
@@ -664,58 +667,75 @@ function SelectedWork() {
                 <motion.div
                   layoutId={`project-card-${p.name}`}
                   onClick={() => setExpanded(p.name)}
-                  className="group rounded-xl p-6 flex flex-col cursor-pointer overflow-hidden relative h-full backdrop-blur-md"
+                  className="group rounded-[20px] p-6 cursor-pointer relative flex flex-col h-full backdrop-blur-xl"
                   style={{
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    transformStyle: "preserve-3d",
+                    background: "linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)",
+                    border: "1px solid rgba(255,255,255,0.05)",
+                    boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
                   }}
                   whileHover={{
+                    borderColor: `${p.accent}40`,
+                    background: `linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)`,
                     y: -8,
                     scale: 1.02,
-                    rotateX: 2,
-                    rotateY: -2,
-                    borderColor: `${p.accent}50`,
-                    boxShadow: `0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)`,
+                    boxShadow: `0 30px 60px rgba(0,0,0,0.5), 0 0 40px ${p.accent}15, inset 0 1px 0 rgba(255,255,255,0.1)`,
                   }}
                   transition={{ layout: { duration: 0.4, type: "spring", bounce: 0.2 } }}
                 >
-                  {/* Status */}
-                  <motion.div layoutId={`project-header-${p.name}`} className="flex items-center justify-between mb-6">
-                    <span
-                      className="w-2 h-2 rounded-full"
-                      style={{ background: p.accent }}
-                    />
-                    <ExternalLink
-                      size={14}
-                      className="text-[#667085] group-hover:text-white transition-colors duration-300"
-                    />
+                  <motion.div layoutId={`project-header-${p.name}`} className="flex items-center justify-between mb-8">
+                    <div
+                      className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 relative"
+                      style={{
+                        background: `linear-gradient(135deg, ${p.accent}15, transparent)`,
+                        border: `1px solid ${p.accent}30`,
+                        boxShadow: `inset 0 1px 0 ${p.accent}40`,
+                      }}
+                    >
+                      <div className="absolute inset-0 rounded-xl blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-500" style={{ background: p.accent }} />
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={p.accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="relative z-10">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                      </svg>
+                    </div>
+                    <motion.div
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors duration-300"
+                      style={{
+                        background: "rgba(255,255,255,0.03)",
+                        border: "1px solid rgba(255,255,255,0.05)",
+                      }}
+                    >
+                      <div className="w-1.5 h-1.5 rounded-full" style={{ background: p.accent, boxShadow: `0 0 8px ${p.accent}` }} />
+                      <span
+                        className="text-[11px] font-medium text-[#A0A0A0]"
+                        style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                      >
+                        Shipped
+                      </span>
+                    </motion.div>
                   </motion.div>
 
-                  {/* Title */}
                   <motion.h3
                     layoutId={`project-title-${p.name}`}
-                    className="text-white text-base font-semibold mb-3 leading-tight"
+                    className="text-white text-xl font-bold mb-3 tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#A0A0A0] transition-all duration-300"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {p.name}
                   </motion.h3>
 
-                  {/* Detailed Description Expansion */}
                   <motion.p
                     layoutId={`project-desc-${p.name}`}
-                    className="text-[#667085] text-xs leading-relaxed mb-6 line-clamp-2"
+                    className="text-[#888] text-sm leading-relaxed mb-8 font-light"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {p.tagline}
                   </motion.p>
 
-                  {/* Tech */}
-                  <motion.div layoutId={`project-tech-${p.name}`} className="flex flex-wrap gap-x-3 gap-y-1 mt-auto pt-2">
+                  <motion.div layoutId={`project-tech-${p.name}`} className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-[rgba(255,255,255,0.05)] pt-6">
                     {p.tech.map((t) => (
                       <span
                         key={t}
-                        className="text-[11px] text-[#667085]"
+                        className="text-[11px] text-[#666] px-3 py-1.5 rounded-lg border border-white/[0.03] bg-white/[0.02] transition-colors duration-300 hover:text-white hover:border-white/[0.1] hover:bg-white/[0.05]"
                         style={{ fontFamily: "'JetBrains Mono', monospace" }}
                       >
                         {t}
@@ -736,7 +756,7 @@ function SelectedWork() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setExpanded(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-md overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#040816]/80 backdrop-blur-xl overflow-y-auto"
           >
             {(() => {
               const p = PROJECTS.find((project) => project.name === expanded);
@@ -745,31 +765,59 @@ function SelectedWork() {
                 <motion.div
                   layoutId={`project-card-${p.name}`}
                   onClick={(e) => e.stopPropagation()}
-                  className="w-full max-w-2xl bg-[rgba(255,255,255,0.03)] backdrop-blur-3xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-8 relative flex flex-col my-auto"
+                  className="w-full max-w-2xl bg-[#0a0a0a] border border-[rgba(255,255,255,0.08)] rounded-[24px] p-8 relative flex flex-col my-auto overflow-hidden"
                   style={{
-                    boxShadow: `0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 0 1px ${p.accent}30`,
+                    boxShadow: `0 40px 80px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 0 1px ${p.accent}30`,
                   }}
                   transition={{ layout: { duration: 0.4, type: "spring", bounce: 0.2 } }}
                 >
+                  {/* Modal Background Glow */}
+                  <div className="absolute top-0 left-0 w-full h-[200px] opacity-10 pointer-events-none" style={{ background: `radial-gradient(ellipse at top, ${p.accent}, transparent 70%)` }} />
+
                   <button
                     onClick={() => setExpanded(null)}
-                    className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+                    className="absolute top-8 right-8 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10 z-50 cursor-pointer"
                   >
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
                       <path d="M1 1L13 13M1 13L13 1" />
                     </svg>
                   </button>
 
-                  <motion.div layoutId={`project-header-${p.name}`} className="flex items-center justify-between mb-6 pr-8">
-                    <span
-                      className="w-3 h-3 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]"
-                      style={{ background: p.accent, boxShadow: `0 0 15px ${p.accent}50` }}
-                    />
+                  <motion.div layoutId={`project-header-${p.name}`} className="flex items-start justify-between mb-8 pr-12 relative z-10">
+                    <div
+                      className="w-14 h-14 rounded-xl flex items-center justify-center"
+                      style={{
+                        background: `linear-gradient(135deg, ${p.accent}15, transparent)`,
+                        border: `1px solid ${p.accent}30`,
+                        boxShadow: `inset 0 1px 0 ${p.accent}40`,
+                      }}
+                    >
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={p.accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                      </svg>
+                    </div>
+                    <motion.div
+                      className="flex items-center gap-2 px-4 py-2 rounded-full"
+                      style={{
+                        background: "rgba(255,255,255,0.03)",
+                        border: `1px solid ${p.accent}40`,
+                      }}
+                    >
+                      <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: p.accent, boxShadow: `0 0 12px ${p.accent}` }} />
+                      <span
+                        className="text-[13px] font-medium text-white tracking-wide"
+                        style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                      >
+                        Shipped Product
+                      </span>
+                    </motion.div>
                   </motion.div>
 
                   <motion.h3
                     layoutId={`project-title-${p.name}`}
-                    className="text-white text-2xl font-bold mb-4 leading-tight"
+                    className="text-white text-3xl font-bold mb-3 tracking-tight relative z-10"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {p.name}
@@ -777,30 +825,29 @@ function SelectedWork() {
 
                   <motion.p
                     layoutId={`project-desc-${p.name}`}
-                    className="text-[#8892b0] text-sm leading-relaxed mb-8"
+                    className="text-[#A0A0A0] text-base leading-relaxed mb-8 font-light max-w-2xl relative z-10"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {p.tagline}
                   </motion.p>
 
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.4 }}
-                    className="mb-8 space-y-4"
+                    transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
+                    className="mb-12 space-y-5 relative z-10"
                   >
                     {p.details.map((detail, idx) => (
-                      <div key={idx} className="flex items-start gap-3">
-                        <div 
-                          className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
-                          style={{ background: `${p.accent}15` }}
+                      <div key={idx} className="flex items-start gap-4 group">
+                        <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors duration-300"
+                          style={{ background: `${p.accent}15`, border: `1px solid ${p.accent}30` }}
                         >
                           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={p.accent} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                           </svg>
                         </div>
                         <p
-                          className="text-[#ccd6f6] text-sm md:text-base leading-relaxed"
+                          className="text-[#E0E0E0] text-base leading-relaxed group-hover:text-white transition-colors duration-300"
                           style={{ fontFamily: "'Inter', sans-serif" }}
                         >
                           {detail}
@@ -813,23 +860,24 @@ function SelectedWork() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
+                    className="relative z-10 mb-8"
                   >
                     <a
                       href={p.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 mb-8 hover:bg-white/5 text-white text-sm font-medium rounded-lg transition-colors border border-white/10 w-fit"
+                      className="inline-flex items-center gap-2 px-8 py-4 hover:opacity-80 text-white text-base font-semibold rounded-xl transition-all duration-300 border w-fit"
                       style={{ fontFamily: "'Inter', sans-serif", background: `${p.accent}15`, borderColor: `${p.accent}30`, color: p.accent }}
                     >
-                      View Live Project <ArrowUpRight size={16} />
+                      View Live Project <ArrowUpRight size={18} />
                     </a>
                   </motion.div>
 
-                  <motion.div layoutId={`project-tech-${p.name}`} className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-[rgba(255,255,255,0.05)]">
+                  <motion.div layoutId={`project-tech-${p.name}`} className="flex flex-wrap gap-3 mt-auto pt-6 border-t border-[rgba(255,255,255,0.06)] relative z-10">
                     {p.tech.map((t) => (
                       <span
                         key={t}
-                        className="text-[12px] text-[#8892b0] px-3 py-1.5 rounded-md border border-[rgba(255,255,255,0.08)] bg-white/[0.02]"
+                        className="text-[13px] text-[#888] px-4 py-2 rounded-lg border border-white/[0.04] bg-white/[0.02] font-medium"
                         style={{ fontFamily: "'JetBrains Mono', monospace" }}
                       >
                         {t}
@@ -863,13 +911,17 @@ function Capabilities() {
   }, [expanded]);
 
   return (
-    <section id="capabilities" className="py-32 px-6 relative h-full overflow-y-auto bg-[#161616]">
-      <div className="max-w-[1200px] mx-auto">
+    <section id="capabilities" className="py-32 px-6 relative">
+      {/* Background Glows */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1200px] h-[600px] bg-[#FF823C] opacity-[0.04] blur-[150px] pointer-events-none rounded-full" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#8B5CF6] opacity-[0.03] blur-[150px] pointer-events-none rounded-full" />
+
+      <div className="max-w-[1200px] mx-auto relative z-10">
         <Reveal>
           <SectionHeader label="Capabilities" title="What I build with." />
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start" style={{ perspective: "1000px" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start" style={{ perspective: "1000px" }}>
           {CAPABILITIES.map((cap, i) => {
             const Icon = cap.icon;
             return (
@@ -877,48 +929,54 @@ function Capabilities() {
                 <motion.div
                   layoutId={`card-${cap.id}`}
                   onClick={() => setExpanded(cap.id)}
-                  className="group rounded-xl p-6 cursor-pointer overflow-hidden relative flex flex-col h-full backdrop-blur-md"
+                  className="group rounded-[20px] p-6 cursor-pointer relative flex flex-col h-full backdrop-blur-xl"
                   style={{
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    transformStyle: "preserve-3d",
+                    background: "linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)",
+                    border: "1px solid rgba(255,255,255,0.05)",
+                    boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
                   }}
                   whileHover={{
-                    borderColor: `${cap.color}50`,
-                    background: `${cap.color}10`,
+                    borderColor: `${cap.color}40`,
+                    background: `linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)`,
                     y: -8,
                     scale: 1.02,
-                    rotateX: 2,
-                    rotateY: -2,
-                    boxShadow: `0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)`,
+                    boxShadow: `0 30px 60px rgba(0,0,0,0.5), 0 0 40px ${cap.color}15, inset 0 1px 0 rgba(255,255,255,0.1)`,
                   }}
                   transition={{ layout: { duration: 0.4, type: "spring", bounce: 0.2 } }}
                 >
-                  <motion.div layoutId={`header-${cap.id}`} className="flex items-start justify-between mb-4">
+                  <motion.div layoutId={`header-${cap.id}`} className="flex items-start justify-between mb-8">
                     <div
-                      className="w-9 h-9 rounded-lg flex items-center justify-center"
+                      className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3 relative"
                       style={{
-                        background: `${cap.color}10`,
-                        border: `1px solid ${cap.color}20`,
+                        background: `linear-gradient(135deg, ${cap.color}15, transparent)`,
+                        border: `1px solid ${cap.color}30`,
+                        boxShadow: `inset 0 1px 0 ${cap.color}40`,
                       }}
                     >
-                      <Icon size={17} style={{ color: cap.color }} />
+                      <div className="absolute inset-0 rounded-xl blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-500" style={{ background: cap.color }} />
+                      <Icon size={22} style={{ color: cap.color }} className="relative z-10" />
                     </div>
-                    <motion.span
+                    <motion.div
                       layoutId={`metric-${cap.id}`}
-                      className="text-[11px] font-medium"
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors duration-300"
                       style={{
-                        color: cap.color,
-                        fontFamily: "'JetBrains Mono', monospace",
+                        background: "rgba(255,255,255,0.03)",
+                        border: "1px solid rgba(255,255,255,0.05)",
                       }}
                     >
-                      {cap.metric}
-                    </motion.span>
+                      <div className="w-1.5 h-1.5 rounded-full" style={{ background: cap.color, boxShadow: `0 0 8px ${cap.color}` }} />
+                      <span
+                        className="text-[11px] font-medium text-[#A0A0A0]"
+                        style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                      >
+                        {cap.metric}
+                      </span>
+                    </motion.div>
                   </motion.div>
 
                   <motion.h3
                     layoutId={`title-${cap.id}`}
-                    className="text-white text-sm font-semibold mb-2"
+                    className="text-white text-xl font-bold mb-3 tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#A0A0A0] transition-colors duration-300"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {cap.label}
@@ -926,17 +984,17 @@ function Capabilities() {
 
                   <motion.p
                     layoutId={`desc-${cap.id}`}
-                    className="text-[#667085] text-xs leading-relaxed mb-5"
+                    className="text-[#888] text-sm leading-relaxed mb-8 font-light"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {cap.desc}
                   </motion.p>
 
-                  <motion.div layoutId={`tech-${cap.id}`} className="flex flex-wrap gap-2 mt-auto pt-2">
+                  <motion.div layoutId={`tech-${cap.id}`} className="flex flex-wrap gap-2 mt-auto pt-4">
                     {cap.skills.map((s) => (
                       <span
                         key={s}
-                        className="text-[11px] text-[#667085] group-hover:text-[#B0B7C3] px-2 py-0.5 rounded border border-[rgba(255,255,255,0.05)] transition-colors duration-300"
+                        className="text-[11px] text-[#666] px-3 py-1.5 rounded-lg border border-white/[0.03] bg-white/[0.02] transition-colors duration-300 hover:text-white hover:border-white/[0.1] hover:bg-white/[0.05]"
                         style={{ fontFamily: "'JetBrains Mono', monospace" }}
                       >
                         {s}
@@ -957,7 +1015,7 @@ function Capabilities() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setExpanded(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-md overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#040816]/80 backdrop-blur-xl overflow-y-auto"
           >
             {(() => {
               const cap = CAPABILITIES.find((c) => c.id === expanded);
@@ -967,48 +1025,56 @@ function Capabilities() {
                 <motion.div
                   layoutId={`card-${cap.id}`}
                   onClick={(e) => e.stopPropagation()}
-                  className="w-full max-w-2xl bg-[rgba(255,255,255,0.03)] backdrop-blur-3xl border border-[rgba(255,255,255,0.1)] rounded-2xl p-8 relative flex flex-col my-auto"
+                  className="w-full max-w-2xl bg-[#0a0a0a] border border-[rgba(255,255,255,0.08)] rounded-[24px] p-8 relative flex flex-col my-auto overflow-hidden"
                   style={{
-                    boxShadow: `0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 0 1px ${cap.color}30`,
+                    boxShadow: `0 40px 80px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 0 1px ${cap.color}30`,
                   }}
                   transition={{ layout: { duration: 0.4, type: "spring", bounce: 0.2 } }}
                 >
+                  {/* Modal Background Glow */}
+                  <div className="absolute top-0 left-0 w-full h-[200px] opacity-10 pointer-events-none" style={{ background: `radial-gradient(ellipse at top, ${cap.color}, transparent 70%)` }} />
+
                   <button
                     onClick={() => setExpanded(null)}
-                    className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+                    className="absolute top-8 right-8 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10 z-50 cursor-pointer"
                   >
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
                       <path d="M1 1L13 13M1 13L13 1" />
                     </svg>
                   </button>
 
-                  <motion.div layoutId={`header-${cap.id}`} className="flex items-start justify-between mb-6 pr-8">
+                  <motion.div layoutId={`header-${cap.id}`} className="flex items-start justify-between mb-8 pr-12 relative z-10">
                     <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center"
+                      className="w-14 h-14 rounded-xl flex items-center justify-center"
                       style={{
-                        background: `${cap.color}15`,
+                        background: `linear-gradient(135deg, ${cap.color}15, transparent)`,
                         border: `1px solid ${cap.color}30`,
+                        boxShadow: `inset 0 1px 0 ${cap.color}40`,
                       }}
                     >
-                      <Icon size={24} style={{ color: cap.color }} />
+                      <Icon size={28} style={{ color: cap.color }} />
                     </div>
-                    <motion.span
+                    <motion.div
                       layoutId={`metric-${cap.id}`}
-                      className="text-[12px] font-medium px-3 py-1 rounded-full border"
+                      className="flex items-center gap-2 px-4 py-2 rounded-full"
                       style={{
-                        color: cap.color,
-                        borderColor: `${cap.color}30`,
-                        background: `${cap.color}10`,
-                        fontFamily: "'JetBrains Mono', monospace",
+                        background: "rgba(255,255,255,0.03)",
+                        border: `1px solid ${cap.color}40`,
                       }}
                     >
-                      {cap.metric}
-                    </motion.span>
+                      <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: cap.color, boxShadow: `0 0 12px ${cap.color}` }} />
+                      <span
+                        className="text-[13px] font-medium text-white tracking-wide"
+                        style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                      >
+                        {cap.metric}
+                      </span>
+                    </motion.div>
                   </motion.div>
 
                   <motion.h3
                     layoutId={`title-${cap.id}`}
-                    className="text-white text-2xl font-bold mb-3"
+                    className="text-white text-3xl font-bold mb-3 tracking-tight relative z-10"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {cap.label}
@@ -1016,30 +1082,30 @@ function Capabilities() {
 
                   <motion.p
                     layoutId={`desc-${cap.id}`}
-                    className="text-[#8892b0] text-base leading-relaxed mb-8"
+                    className="text-[#A0A0A0] text-base leading-relaxed mb-8 font-light max-w-2xl relative z-10"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {cap.desc}
                   </motion.p>
 
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.4 }}
-                    className="mb-10 space-y-4"
+                    transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
+                    className="mb-12 space-y-5 relative z-10"
                   >
                     {cap.details.map((detail, idx) => (
-                      <div key={idx} className="flex items-start gap-3">
+                      <div key={idx} className="flex items-start gap-4 group">
                         <div 
-                          className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
-                          style={{ background: `${cap.color}15` }}
+                          className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors duration-300"
+                          style={{ background: `${cap.color}15`, border: `1px solid ${cap.color}30` }}
                         >
                           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={cap.color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                           </svg>
                         </div>
                         <p
-                          className="text-[#ccd6f6] text-sm md:text-base leading-relaxed"
+                          className="text-[#E0E0E0] text-base leading-relaxed group-hover:text-white transition-colors duration-300"
                           style={{ fontFamily: "'Inter', sans-serif" }}
                         >
                           {detail}
@@ -1048,23 +1114,22 @@ function Capabilities() {
                     ))}
                     
                     {cap.certUrl && (
-                      <div className="flex items-start gap-3 pt-2">
-                        <div 
-                          className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
-                          style={{ background: `${cap.color}15` }}
+                      <div className="flex items-start gap-4 pt-4 mt-2 border-t border-white/5">
+                        <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
+                          style={{ background: `${cap.color}20` }}
                         >
                           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={cap.color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                           </svg>
                         </div>
                         <a
                           href={cap.certUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-sm md:text-base leading-relaxed font-medium hover:underline flex items-center gap-1.5"
+                          className="text-base leading-relaxed font-semibold hover:underline flex items-center gap-1.5 transition-opacity hover:opacity-80"
                           style={{ color: cap.color, fontFamily: "'Inter', sans-serif" }}
                         >
-                          View Official Certification <ArrowUpRight size={16} />
+                          View Official Certification <ArrowUpRight size={18} />
                         </a>
                       </div>
                     )}
@@ -1407,14 +1472,14 @@ function StackingCardTransition({ children }: { children: React.ReactNode[] }) {
         Base Card: Sticky to the top. 
         It locks into the viewport exactly like a background.
       */}
-      <div className="sticky top-0 z-0 w-full h-screen overflow-hidden">
+      <div className="sticky bottom-0 z-0 w-full overflow-hidden">
         <motion.div
-          className="h-full w-full flex flex-col justify-center"
+          className="w-full flex flex-col justify-center"
           style={{
             scale,
             opacity,
             filter: blur,
-            transformOrigin: "top center",
+            transformOrigin: "bottom center",
             willChange: "transform, opacity, filter",
           }}
         >
@@ -1427,7 +1492,7 @@ function StackingCardTransition({ children }: { children: React.ReactNode[] }) {
         Like a car window closing.
       */}
       <div
-        className="relative z-10 w-full bg-[#161616]"
+        className="relative z-10 w-full bg-[#040816]"
         style={{
           borderTopLeftRadius: "40px",
           borderTopRightRadius: "40px",
@@ -1452,13 +1517,13 @@ export default function App() {
   const scale = useTransform(scrollY, [0, yRange], [0.85, 1]);
 
   return (
-    <div className="min-h-screen bg-[#161616] text-white overflow-hidden">
+    <div className="min-h-screen bg-[#040816] text-white overflow-x-hidden relative">
       <NoiseOverlay />
       <Nav />
       <Hero />
       <motion.main 
         style={{ y: mainY, opacity, scale }}
-        className="relative z-10 bg-[#161616] origin-center"
+        className="relative z-10 bg-[#040816] origin-center"
       >
         <StackingCardTransition>
           <SelectedWork />
