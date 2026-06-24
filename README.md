@@ -1,39 +1,56 @@
-# Navin Adithya - Portfolio 🚀
+# Navin Adithya - Premium Portfolio 🚀
 
-A highly interactive, premium developer portfolio built with React, TypeScript, and Framer Motion. Designed to showcase modern web engineering, cybersecurity expertise, and production-ready deployments.
-
+A highly interactive, production-grade developer portfolio built with React, TypeScript, Tailwind CSS v4, and Framer Motion. Designed with a strict focus on modern web engineering, elegant visual choreography (mimicking Apple/Linear aesthetics), and enterprise-ready architectural patterns.
 
 ## ✨ Features
 
-- **Premium Modern UI**: Built with strict attention to modern design trends, including glassmorphism, dynamic scrolling layouts, and soft drop shadows.
-- **Interactive Terminal Graphic**: A fully animated, CSS-rendered terminal in the Hero section typing out personal details and tech stack using Framer Motion.
-- **Smooth Animations**: High-performance, butter-smooth layout transitions and micro-interactions powered by `framer-motion` and `lenis` smooth scrolling.
-- **Dynamic Glassmorphism Navbar**: A smart navigation bar that instantly adapts its text color and background blur depending on whether it is hovering over a light or dark section.
-- **Fully Responsive Architecture**: Impeccable scaling and structural integrity across mobile, tablet, and ultra-wide desktop monitors.
+- **Premium Modern UI**: Built with strict attention to modern design trends, including glassmorphism, dynamic stacking card choreography, and smooth gradients.
+- **Hardware-Accelerated Animations**: High-performance, butter-smooth layout transitions powered by `framer-motion` and `lenis` smooth scrolling. Animations are explicitly offloaded to the GPU for solid 60fps rendering.
+- **Dynamic Cinematic Hero**: Features a complex scrolling horizontal split-screen transition that unveils the rest of the application.
+- **Modular Architecture**: A strictly component-driven architecture with clean separation of concerns between data, state management, layouts, and reusable UI primitives.
+- **Fully Responsive Structure**: Impeccable scaling and structural integrity across mobile, tablet, and ultra-wide desktop monitors, featuring heavily tested mobile modal overflow handling.
 
 ## 🛠️ Tech Stack
 
-- **Framework**: React 18
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS (with custom design system variables)
+- **Framework**: React 18 / Vite
+- **Language**: TypeScript (with strict interfaces for data integrity)
+- **Styling**: Tailwind CSS v4
 - **Animation**: Framer Motion & Lenis (Smooth Scroll)
 - **Icons**: Lucide React
-- **Build Tool**: Vite
+- **Forms**: Web3Forms (Serverless Contact API)
+
+## 📁 Project Structure
+
+The project was recently refactored from a monolith into a highly scalable directory structure:
+
+```text
+src/
+├── app/                  # Main Application Composition (App.tsx)
+├── components/           
+│   ├── layout/           # Shared Page Layouts (Nav, Footer)
+│   ├── sections/         # Main Page Blocks (Hero, SelectedWork, Capabilities, Timeline, Contact)
+│   └── ui/               # Reusable Primitives (Reveal, MagneticButton, AnimatedCounter, StackingCardTransition)
+├── data/                 # Static Typed Data Stores (constants.ts)
+├── hooks/                # Custom React Hooks (useLenis, useScrollTo)
+├── styles/               # Global Styles and Tailwind Config (index.css, theme.css)
+├── types/                # Global TypeScript Definitions (index.d.ts)
+└── main.tsx              # React DOM Entry Point
+```
 
 ## 🚀 Getting Started
 
 Follow these instructions to run the portfolio locally on your machine.
 
 ### Prerequisites
-
-Ensure you have [Node.js](https://nodejs.org/) installed on your machine.
+- Node.js (v18+ recommended)
+- npm or yarn
 
 ### Installation
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/NavinAdithya/portfolio.git
-   cd portfolio
+   git clone https://github.com/NavinAdithya/Portfolio.git
+   cd Portfolio
    ```
 
 2. **Install the dependencies:**
@@ -47,29 +64,21 @@ Ensure you have [Node.js](https://nodejs.org/) installed on your machine.
    ```
 
 4. **View in Browser:**
-   Open [http://localhost:5173](http://localhost:5173) in your browser to see the portfolio.
+   Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-## 📁 Project Structure
-
-```text
-src/
-├── app/                  # Main Application Component (App.tsx)
-├── components/           # Reusable UI Components (HeroOrb, IdentityCard, etc.)
-├── styles/               # Global Styles and Theme Tokens (theme.css, index.css)
-├── imports/              # Static Assets & Design Files
-└── main.tsx              # React DOM Entry Point
+### Build for Production
+To generate a highly optimized static bundle:
+```bash
+npm run build
 ```
 
 ## 🎨 Theme System
 
-The portfolio uses a sophisticated unified theme anchored around a custom "Peach" accent color.
+The portfolio uses a sophisticated unified theme anchored around a custom "Peach" accent color with sleek dark-mode glass surfaces.
 
 - **Primary Accent**: `#FF823C`
-- **Dark Canvas**: `#161616`
-- **Light Typography**: `#FFFFFF` / `#B0B7C3`
-- **Dark Typography**: `#111111` / `#555555`
-
-These are managed via centralized Tailwind configuration and raw CSS variables.
+- **Dark Canvas**: `#040816`
+- **Surface Gradients**: Radial & Linear overlays with `backdrop-blur-xl`
 
 ## 📄 License
 
