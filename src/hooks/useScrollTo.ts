@@ -15,7 +15,10 @@ export function useScrollTo() {
     // @ts-ignore
     if (window.lenis) {
       // @ts-ignore
-      window.lenis.scrollTo(targetY);
+      window.lenis.scrollTo(targetY, { 
+        duration: 1.5, 
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) 
+      });
     } else {
       window.scrollTo({ top: targetY, behavior: "smooth" });
     }
