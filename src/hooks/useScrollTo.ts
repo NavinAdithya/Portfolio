@@ -5,20 +5,21 @@ export function useScrollTo() {
     const element = document.querySelector(href);
     if (!element) return;
     
-    let targetY = element.getBoundingClientRect().top + window.scrollY;
-    
-    // If we're at the top (Hero section is active), elements in <main> are shifted up by up to 800px.
-    if (window.scrollY < 800 && href !== "#hero") {
-      targetY += (800 - window.scrollY);
+    let targetY = 0;
+
+    if (href === "#work") {
+      targetY = 800; // Hardcode exactly to Hero spacer height to guarantee perfect alignment
+    } else {
+      targetY = element.getBoundingClientRect().top + window.scrollY;
+      if (window.scrollY < 800 && href !== "#hero") {
+        targetY += (800 - window.scrollY);
+      }
     }
 
     // @ts-ignore
     if (window.lenis) {
       // @ts-ignore
-      window.lenis.scrollTo(targetY, { 
-        duration: 1.5, 
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) 
-      });
+      window.lenis.scrollTo(targetY, { duration: 1.5 });
     } else {
       window.scrollTo({ top: targetY, behavior: "smooth" });
     }
