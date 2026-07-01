@@ -10,30 +10,6 @@ export const NAV_LINKS: INavLink[] = [
 
 export const PROJECTS: IProject[] = [
   {
-    name: "Eye Ease - Website",
-    tagline: "Hackathon project for Dr. Agarwal's Eye Hospital enhancing eye care accessibility.",
-    details: [
-      "Designed intuitive layouts and workflows for hospital patients.",
-      "Implemented responsive components for desktop & mobile.",
-      "Added interactive elements for a smooth user experience.",
-    ],
-    tech: ["React", "Vite", "Tailwind CSS"],
-    url: "https://navinadithya.github.io/Eye_Ease_Frontend_Website/",
-    accent: "#3B82F6",
-  },
-  {
-    name: "Eye Ease - Android UI/UX",
-    tagline: "Android frontend interface for the Eye Ease hackathon project.",
-    details: [
-      "Designed an intuitive mobile app interface for patients.",
-      "Focused on clean design principles and usability.",
-      "Ensured accessibility and a seamless digital journey.",
-    ],
-    tech: ["UI/UX", "Frontend"],
-    url: "https://navinadithya.github.io/Eye_Ease_UIUX_For_Android/",
-    accent: "#10B981",
-  },
-  {
     name: "SK Enterprises",
     tagline: "Electrical contractor site with grid console UI, transformer gallery, and SEO-optimised deploy.",
     details: [
@@ -56,6 +32,30 @@ export const PROJECTS: IProject[] = [
     tech: ["React", "Node.js", "MongoDB", "Tailwind"],
     url: "https://sk-bloom-hr-solutions.netlify.app/",
     accent: "#FF823C",
+  },
+  {
+    name: "Eye Ease - Website",
+    tagline: "Hackathon project for Dr. Agarwal's Eye Hospital enhancing eye care accessibility.",
+    details: [
+      "Designed intuitive layouts and workflows for hospital patients.",
+      "Implemented responsive components for desktop & mobile.",
+      "Added interactive elements for a smooth user experience.",
+    ],
+    tech: ["React", "Vite", "Tailwind CSS"],
+    url: "https://navinadithya.github.io/Eye_Ease_Frontend_Website/",
+    accent: "#3B82F6",
+  },
+  {
+    name: "Eye Ease - Android UI/UX",
+    tagline: "Android frontend interface for the Eye Ease hackathon project.",
+    details: [
+      "Designed an intuitive mobile app interface for patients.",
+      "Focused on clean design principles and usability.",
+      "Ensured accessibility and a seamless digital journey.",
+    ],
+    tech: ["UI/UX", "Frontend"],
+    url: "https://navinadithya.github.io/Eye_Ease_UIUX_For_Android/",
+    accent: "#10B981",
   },
   {
     name: "ReqWise",
