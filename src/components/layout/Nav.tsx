@@ -24,23 +24,23 @@ export function Nav() {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       style={{
         background: scrolled
-          ? "linear-gradient(135deg, rgba(12,12,18,0.82) 0%, rgba(8,8,14,0.88) 100%)"
+          ? "rgba(255,255,255,0.03)"
           : "transparent",
-        backdropFilter: scrolled ? "blur(32px) saturate(2) brightness(1.05)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(32px) saturate(2) brightness(1.05)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.07)" : "1px solid transparent",
+        backdropFilter: scrolled ? "blur(40px) saturate(1.8)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(40px) saturate(1.8)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "1px solid transparent",
         boxShadow: scrolled
-          ? "0 8px 40px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.06) inset, 0 -1px 0 rgba(0,0,0,0.4) inset"
+          ? "0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06)"
           : "none",
       }}
     >
-      {/* Top highlight line — only visible when scrolled */}
+      {/* Top edge highlight — subtle refraction line */}
       {scrolled && (
         <div
           className="absolute top-0 left-0 right-0 h-[1px] pointer-events-none"
           style={{
             background:
-              "linear-gradient(90deg, transparent 0%, rgba(255,130,60,0.35) 30%, rgba(255,255,255,0.25) 50%, rgba(139,92,246,0.35) 70%, transparent 100%)",
+              "linear-gradient(90deg, transparent 5%, rgba(255,255,255,0.12) 30%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.12) 70%, transparent 95%)",
           }}
         />
       )}
@@ -149,10 +149,10 @@ export function Nav() {
             className="md:hidden px-6 pb-6 pt-2 flex flex-col gap-4 overflow-hidden"
             style={{
               background: scrolled
-                ? "rgba(8,8,14,0.95)"
-                : "rgba(255,255,255,0.98)",
-              backdropFilter: "blur(32px) saturate(2)",
-              borderTop: "1px solid rgba(255,255,255,0.06)",
+                ? "rgba(255,255,255,0.03)"
+                : "rgba(255,255,255,0.6)",
+              backdropFilter: "blur(40px) saturate(1.8)",
+              borderTop: "1px solid rgba(255,255,255,0.08)",
             }}
           >
             {NAV_LINKS.map((l) => (
