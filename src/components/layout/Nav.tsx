@@ -18,14 +18,33 @@ export function Nav() {
 
   return (
     <motion.header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-700"
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       style={{
-        background: scrolled ? "rgba(10,10,10,0.75)" : "transparent",
-        backdropFilter: scrolled ? "blur(24px) saturate(1.5)" : "none",
-        borderColor: scrolled ? "rgba(255,255,255,0.05)" : "transparent",
-        boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.5)" : "none",
+        background: scrolled
+          ? "linear-gradient(135deg, rgba(12,12,18,0.82) 0%, rgba(8,8,14,0.88) 100%)"
+          : "transparent",
+        backdropFilter: scrolled ? "blur(32px) saturate(2) brightness(1.05)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(32px) saturate(2) brightness(1.05)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.07)" : "1px solid transparent",
+        boxShadow: scrolled
+          ? "0 8px 40px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.06) inset, 0 -1px 0 rgba(0,0,0,0.4) inset"
+          : "none",
       }}
     >
+      {/* Top highlight line — only visible when scrolled */}
+      {scrolled && (
+        <div
+          className="absolute top-0 left-0 right-0 h-[1px] pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent 0%, rgba(255,130,60,0.35) 30%, rgba(255,255,255,0.25) 50%, rgba(139,92,246,0.35) 70%, transparent 100%)",
+          }}
+        />
+      )}
+
       <div className="max-w-[1200px] mx-auto h-16 flex items-center justify-between px-6">
         {/* Left — Logo */}
         <button
@@ -40,14 +59,18 @@ export function Nav() {
         </button>
 
         {/* Center — Links */}
-        <ul className="hidden md:flex items-center gap-2">
+        <ul className="hidden md:flex items-center gap-1">
           {NAV_LINKS.map((l) => (
             <li key={l.href}>
               <motion.button
                 whileHover={{ y: -2, scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => scrollTo(l.href)}
-                className={`px-4 py-2 text-[12px] transition-colors duration-300 tracking-wide cursor-pointer rounded-full ${scrolled ? "text-[#B0B7C3] hover:text-white hover:bg-[rgba(255,255,255,0.05)]" : "text-[#666666] hover:text-black hover:bg-black/5"}`}
+                className={`px-4 py-2 text-[12px] font-medium transition-all duration-300 tracking-wide cursor-pointer rounded-full ${
+                  scrolled
+                    ? "text-[#B0B7C3] hover:text-white hover:bg-white/[0.07] hover:shadow-[0_0_12px_rgba(255,255,255,0.05)]"
+                    : "text-[#666666] hover:text-black hover:bg-black/5"
+                }`}
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 {l.label}
@@ -57,9 +80,20 @@ export function Nav() {
         </ul>
 
         {/* Right — Status + CTA */}
-        <div className="hidden md:flex items-center gap-5">
-          <motion.div 
-            className={`relative flex items-center gap-2 px-4 py-1.5 rounded-full border cursor-default overflow-hidden transition-colors duration-500 ${scrolled ? "bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.1)] shadow-[0_0_15px_rgba(255,255,255,0.02)]" : "bg-black/[0.02] border-black/10 shadow-[0_2px_10px_rgba(0,0,0,0.02)]"}`}
+        <div className="hidden md:flex items-center gap-4">
+          {/* Available badge */}
+          <motion.div
+            className={`relative flex items-center gap-2.5 px-4 py-1.5 rounded-full border cursor-default overflow-hidden transition-all duration-500 ${
+              scrolled
+                ? "border-[rgba(255,255,255,0.1)] shadow-[0_0_20px_rgba(255,130,60,0.06),inset_0_1px_0_rgba(255,255,255,0.08)]"
+                : "bg-black/[0.02] border-black/10"
+            }`}
+            style={{
+              background: scrolled
+                ? "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)"
+                : undefined,
+              backdropFilter: scrolled ? "blur(12px)" : "none",
+            }}
             whileHover="hover"
             initial="initial"
           >
@@ -72,9 +106,18 @@ export function Nav() {
               }}
               transition={{ duration: 0.6, ease: "easeInOut" }}
             />
-            
-            <div className="relative z-10 flex items-center gap-2.5">
-              <span className={`text-[10px] uppercase tracking-widest font-semibold ${scrolled ? "text-[#E0E0E0]" : "text-[#444444]"}`} style={{ fontFamily: "'Inter', sans-serif" }}>
+
+            {/* Pulsing green dot */}
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+            </span>
+
+            <div className="relative z-10 flex items-center gap-2">
+              <span
+                className={`text-[10px] uppercase tracking-widest font-semibold ${scrolled ? "text-[#E0E0E0]" : "text-[#444444]"}`}
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
                 Available
               </span>
             </div>
@@ -82,9 +125,12 @@ export function Nav() {
 
           <MagneticButton
             onClick={() => scrollTo("#contact")}
-            className="px-5 py-2 rounded-full bg-[#FF823C] text-white text-xs font-bold tracking-wide hover:scale-105 transition-transform duration-300 cursor-pointer shadow-[0_4px_15px_rgba(255,130,60,0.3)]"
+            className="relative px-5 py-2 rounded-full bg-[#FF823C] text-white text-xs font-bold tracking-wide cursor-pointer overflow-hidden"
+            style={{ boxShadow: "0 4px 20px rgba(255,130,60,0.45), 0 0 0 1px rgba(255,130,60,0.3) inset" } as React.CSSProperties}
           >
-            Hire Me
+            <span className="relative z-10">Hire Me</span>
+            {/* Inner shine */}
+            <span className="absolute top-0 left-0 right-0 h-[50%] bg-gradient-to-b from-white/20 to-transparent rounded-t-full pointer-events-none" />
           </MagneticButton>
         </div>
 
@@ -101,7 +147,13 @@ export function Nav() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden px-6 pb-6 pt-2 flex flex-col gap-4 overflow-hidden"
-            style={{ background: scrolled ? "rgba(10,10,10,0.98)" : "rgba(255,255,255,0.98)", backdropFilter: "blur(20px)" }}
+            style={{
+              background: scrolled
+                ? "rgba(8,8,14,0.95)"
+                : "rgba(255,255,255,0.98)",
+              backdropFilter: "blur(32px) saturate(2)",
+              borderTop: "1px solid rgba(255,255,255,0.06)",
+            }}
           >
             {NAV_LINKS.map((l) => (
               <button
