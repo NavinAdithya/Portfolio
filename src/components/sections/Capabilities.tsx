@@ -236,6 +236,7 @@ export function Capabilities() {
                           href={cap.certUrl}
                           target="_blank"
                           rel="noopener noreferrer"
+                          aria-label={`View official certification for ${cap.label}`}
                           className="text-base leading-relaxed font-semibold hover:underline flex items-center gap-1.5 transition-opacity hover:opacity-80"
                           style={{ color: cap.color, fontFamily: "'Inter', sans-serif" }}
                         >

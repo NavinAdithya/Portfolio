@@ -237,6 +237,7 @@ export function SelectedWork() {
                       href={p.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`View live project: ${p.name}`}
                       className="inline-flex items-center gap-2 px-8 py-4 hover:opacity-80 text-white text-base font-semibold rounded-xl transition-all duration-300 border w-fit"
                       style={{ fontFamily: "'Inter', sans-serif", background: `${p.accent}15`, borderColor: `${p.accent}30`, color: p.accent }}
                     >

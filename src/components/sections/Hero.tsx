@@ -33,7 +33,8 @@ export function Hero() {
       <div className="max-w-[1200px] w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Left Content */}
         <div className="relative z-10 pt-10 lg:pt-0">
-          <motion.h1
+          <h1 className="sr-only">Navin Adithya - Web Developer and Cyber Security Engineer</h1>
+          <motion.h2
             initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
@@ -54,7 +55,7 @@ export function Hero() {
             products.
             <br />
             Ship real systems.
-          </motion.h1>
+          </motion.h2>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
