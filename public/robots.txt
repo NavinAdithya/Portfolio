@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://navinadithya.github.io/Portfolio/sitemap.xml
+Sitemap: https://buildwithnavin.me/sitemap.xml
