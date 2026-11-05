@@ -1,54 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navin Adithya — Web Developer & Cyber Security Engineer</title>
+    <meta name="description" content="Building secure digital products with code, systems, and production-grade execution. Full-stack web developer and cybersecurity engineer shipping real projects." />
+    <meta name="keywords" content="Navin Adithya, Web Developer, Cyber Security Engineer, Frontend Developer, React Developer, Full Stack Developer, Penetration Testing, OWASP, Portfolio" />
+    <meta name="author" content="Navin Adithya" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#040816" />
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Navin Adithya — Web Developer & Cyber Security Engineer</title>
-      <meta name="description" content="Building secure digital products with code, systems, and production-grade execution. Full-stack web developer and cybersecurity engineer shipping real projects." />
-      <meta name="keywords" content="Navin Adithya, Web Developer, Cyber Security Engineer, Frontend Developer, React Developer, Full Stack Developer, Portfolio" />
-      <meta name="author" content="Navin Adithya" />
-      <meta name="robots" content="index, follow" />
-      
-      <!-- Open Graph / Facebook -->
-      <meta property="og:type" content="website" />
-      <meta property="og:title" content="Navin Adithya — Web Developer & Cyber Security Engineer" />
-      <meta property="og:description" content="Building secure digital products with code, systems, and production-grade execution. Full-stack web developer and cybersecurity engineer shipping real projects." />
-      <meta property="og:url" content="https://buildwithnavin.me/" />
-      <meta property="og:image" content="https://buildwithnavin.me/og-image.png" />
-      <link rel="icon" type="image/png" href="/favicon.png" />
-      
-      <!-- Twitter -->
-      <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:title" content="Navin Adithya — Web Developer & Cyber Security Engineer" />
-      <meta property="twitter:description" content="Building secure digital products with code, systems, and production-grade execution. Full-stack web developer and cybersecurity engineer shipping real projects." />
-      
-      <!-- Canonical URL -->
-      <link rel="canonical" href="https://buildwithnavin.me/" />
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://buildwithnavin.me/" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
 
-      <!-- JSON-LD Structured Data -->
-      <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Navin Adithya",
-        "url": "https://buildwithnavin.me/",
-        "jobTitle": "Web Developer & Cyber Security Engineer",
-        "description": "Building secure digital products with code, systems, and production-grade execution. Full-stack web developer and cybersecurity engineer shipping real projects.",
-        "sameAs": [
-          "https://github.com/navinadithya"
-        ]
-      }
-      </script>
-      
-      <meta name="theme-color" content="#040816" />
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-      <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
-    </head>
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-    </body>
-  </html>
+    <!-- AI Agent & LLM Context Discovery -->
+    <link rel="alternate" type="text/markdown" href="/llms.txt" title="LLM Summary" />
+    <link rel="alternate" type="text/markdown" href="/llms-full.txt" title="Full LLM Knowledge Base" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Navin Adithya" />
+    <meta property="og:title" content="Navin Adithya — Web Developer & Cyber Security Engineer" />
+    <meta property="og:description" content="Building secure digital products with code, systems, and production-grade execution. Full-stack web developer and cybersecurity engineer shipping real projects." />
+    <meta property="og:url" content="https://buildwithnavin.me/" />
+    <meta property="og:image" content="https://buildwithnavin.me/og-image.png" />
+    <meta property="og:image:alt" content="Navin Adithya — Portfolio Banner" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Navin Adithya — Web Developer & Cyber Security Engineer" />
+    <meta name="twitter:description" content="Building secure digital products with code, systems, and production-grade execution. Full-stack web developer and cybersecurity engineer shipping real projects." />
+    <meta name="twitter:image" content="https://buildwithnavin.me/og-image.png" />
+
+    <!-- JSON-LD Structured Data Graph (E-E-A-T & Google ProfilePage Standards) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://buildwithnavin.me/#website",
+          "url": "https://buildwithnavin.me/",
+          "name": "Navin Adithya — Web Developer & Cyber Security Engineer",
+          "description": "Portfolio of Navin Adithya: Full-stack web engineering, cybersecurity architecture, and AI automation.",
+          "publisher": {
+            "@id": "https://buildwithnavin.me/#person"
+          }
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "https://buildwithnavin.me/#webpage",
+          "url": "https://buildwithnavin.me/",
+          "name": "Navin Adithya — Professional Profile & Portfolio",
+          "isPartOf": {
+            "@id": "https://buildwithnavin.me/#website"
+          },
+          "mainEntity": {
+            "@id": "https://buildwithnavin.me/#person"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://buildwithnavin.me/#person",
+          "name": "Navin Adithya",
+          "url": "https://buildwithnavin.me/",
+          "jobTitle": "Full-Stack Web Developer & Cyber Security Engineer",
+          "description": "Building secure digital products with code, systems, and production-grade execution. Full-stack web developer and cybersecurity engineer shipping real projects.",
+          "image": "https://buildwithnavin.me/favicon.png",
+          "sameAs": [
+            "https://github.com/NavinAdithya"
+          ],
+          "knowsAbout": [
+            "Web Development",
+            "Cybersecurity",
+            "React",
+            "TypeScript",
+            "Vite",
+            "Tailwind CSS",
+            "Node.js",
+            "Vulnerability Assessment",
+            "Threat Modeling",
+            "OWASP Top 10",
+            "SIEM",
+            "Network Analysis",
+            "AI Agent Workflows",
+            "LangChain"
+          ],
+          "alumniOf": {
+            "@type": "EducationalOrganization",
+            "name": "SRM Easwari Engineering College"
+          },
+          "hasCredential": [
+            {
+              "@type": "EducationalOccupationalCredential",
+              "name": "Google Cybersecurity Professional Certificate",
+              "credentialCategory": "Professional Certificate"
+            }
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://buildwithnavin.me/#projects",
+          "name": "Featured Software Engineering Projects",
+          "itemListElement": [
+            {
+              "@type": "SoftwareApplication",
+              "position": 1,
+              "name": "SK Bloom HR Solutions",
+              "description": "Enterprise HR platform with compliance intelligence, multi-tenant RBAC, and audit trails.",
+              "applicationCategory": "BusinessApplication",
+              "url": "https://sk-bloom-hr-solutions.netlify.app/"
+            },
+            {
+              "@type": "WebSite",
+              "position": 2,
+              "name": "SK Enterprises",
+              "description": "Electrical contractor site with grid console UI, transformer gallery, and SEO-optimised deploy.",
+              "url": "https://www.skenterprisesurapakkam.in/"
+            },
+            {
+              "@type": "SoftwareApplication",
+              "position": 3,
+              "name": "ReqWise",
+              "description": "Requirements QA platform with versioned objects, role-split views, and decision audit logs.",
+              "applicationCategory": "DeveloperApplication",
+              "url": "https://navinadithya.github.io/ReqWise/#/login"
+            },
+            {
+              "@type": "SoftwareApplication",
+              "position": 4,
+              "name": "Eye Ease",
+              "description": "Healthcare digital platform & Android interface enhancing accessibility for Dr. Agarwal's Eye Hospital.",
+              "applicationCategory": "HealthApplication",
+              "url": "https://navinadithya.github.io/Eye_Ease_Frontend_Website/"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>html, body { height: 100%; margin: 0; background-color: #040816; color: #ffffff; } #root { height: 100%; }</style>
+  </head>
+  <body>
+    <!-- Root Container: Contains semantic pre-render content for search crawlers & AI bots, seamlessly replaced upon React mount -->
+    <div id="root">
+      <main style="max-width: 900px; margin: 0 auto; padding: 2rem; font-family: 'Inter', system-ui, sans-serif;">
+        <header>
+          <h1 style="font-size: 2.25rem; font-weight: 700;">Navin Adithya</h1>
+          <p style="font-size: 1.25rem; color: #94A3B8;">Full-Stack Web Developer &amp; Cyber Security Engineer</p>
+          <p>Building secure digital products with code, systems, and production-grade execution. Specializing in high-performance web engineering, cybersecurity architecture, and AI automation pipelines.</p>
+        </header>
+
+        <section style="margin-top: 2rem;">
+          <h2 style="font-size: 1.5rem;">Core Engineering Capabilities</h2>
+          <ul>
+            <li><strong>Web Engineering:</strong> React, TypeScript, Tailwind CSS, Vite, Responsive Architecture, REST APIs.</li>
+            <li><strong>Cyber Security:</strong> Vulnerability Assessment, Threat Modeling, OWASP Top 10, Wireshark, Linux, SIEM, Cryptography.</li>
+            <li><strong>AI &amp; Automation:</strong> Claude API, Gemini API, LangChain, Flowise, n8n Agentic Pipelines.</li>
+          </ul>
+        </section>
+
+        <section style="margin-top: 2rem;">
+          <h2 style="font-size: 1.5rem;">Featured Projects</h2>
+          <ul>
+            <li><strong>SK Bloom HR Solutions:</strong> Enterprise HR platform with compliance intelligence and multi-tenant RBAC.</li>
+            <li><strong>SK Enterprises:</strong> High-performance commercial web architecture with grid console UI.</li>
+            <li><strong>ReqWise:</strong> Requirements QA platform with decision audit logs and versioned traceability.</li>
+            <li><strong>Eye Ease:</strong> Healthcare accessibility solution engineered for Dr. Agarwal's Eye Hospital Hackathon.</li>
+          </ul>
+        </section>
+
+        <footer style="margin-top: 2rem; border-top: 1px solid #1E293B; padding-top: 1rem;">
+          <p>Connect: <a href="https://github.com/NavinAdithya" style="color: #38BDF8;">GitHub</a> | Website: <a href="https://buildwithnavin.me/" style="color: #38BDF8;">buildwithnavin.me</a></p>
+        </footer>
+      </main>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

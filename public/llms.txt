@@ -1,0 +1,42 @@
+# Navin Adithya — Portfolio & Knowledge Base
+
+> Full-Stack Web Developer & Cyber Security Engineer building secure, high-performance digital products and agentic AI systems.
+
+- **Name**: Navin Adithya
+- **Website**: https://buildwithnavin.me/
+- **GitHub**: https://github.com/NavinAdithya
+- **Specialization**: Full-Stack Web Development, Cyber Security, Penetration Testing, AI Automation
+
+---
+
+## Technical Capabilities
+
+- **Web Engineering**: React 18/19, TypeScript, Vite, Tailwind CSS v4, Next.js, Node.js, REST APIs, Responsive Architecture.
+- **Cyber Security**: Vulnerability Assessment, Threat Modeling, OWASP Top 10 mitigation, Wireshark, Linux Security, SIEM, Cryptography, Role-Based Access Control (RBAC).
+- **AI & Automation**: LangChain, Flowise, n8n automation pipelines, Claude API, Gemini API, Multi-Agent Systems.
+
+---
+
+## Featured Projects
+
+1. **SK Enterprises** (https://www.skenterprisesurapakkam.in/)
+   - Electrical contractor platform featuring a custom grid console UI, transformer showcase, and SEO-optimized deployment with 100% uptime.
+2. **SK Bloom HR Solutions** (https://sk-bloom-hr-solutions.netlify.app/)
+   - Enterprise HR platform engineered with compliance intelligence, multi-tenant RBAC, and immutable audit trails. Built with React, Node.js, MongoDB, and Tailwind CSS.
+3. **ReqWise** (https://navinadithya.github.io/ReqWise/#/login)
+   - Requirements QA platform with versioned requirement objects, role-split analyst/developer views, and decision audit logs.
+4. **Eye Ease** (https://navinadithya.github.io/Eye_Ease_Frontend_Website/)
+   - Healthcare accessibility platform and Android UI/UX built for Dr. Agarwal's Eye Hospital hackathon, focusing on patient experience and WCAG compliance.
+
+---
+
+## Education & Certifications
+
+- **B.E. Computer Science & Engineering (Cyber Security Specialization)** — SRM Easwari Engineering College (2024–2028, CGPA 8.1+)
+- **Google Cybersecurity Professional Certificate** — Coursera & Tata Cybersecurity Simulation
+- **Research Internship (Web Development)** — SRM Easwari Engineering College
+
+---
+
+## Detailed LLM Context
+For comprehensive technical details, consult: https://buildwithnavin.me/llms-full.txt

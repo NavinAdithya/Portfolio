@@ -1,0 +1,81 @@
+# Navin Adithya — Full Knowledge Base & Technical Profile
+
+> This document is designed for AI search engines, LLM agents (Claude, ChatGPT, Perplexity, Gemini), and web crawlers indexation.
+
+## Biography
+Navin Adithya is an Indian Full-Stack Web Developer and Cyber Security Engineer currently pursuing a Bachelor of Engineering (B.E.) in Computer Science and Engineering with a specialization in Cyber Security at SRM Easwari Engineering College (2024–2028). He combines deep software engineering expertise (React, TypeScript, Node.js) with defense-in-depth cybersecurity practices (OWASP standards, RBAC, vulnerability scanning, network traffic analysis) and generative AI automation.
+
+- **Canonical URL**: https://buildwithnavin.me/
+- **GitHub Profile**: https://github.com/NavinAdithya
+- **Email Contact**: Contactable via portfolio portal at https://buildwithnavin.me/#contact
+
+---
+
+## Core Competencies & Skills
+
+### 1. Web Development & Frontend Architecture
+- **Languages**: TypeScript, JavaScript (ESNext), HTML5, CSS3, Python, C/C++
+- **Frameworks & Libraries**: React, Vite, Next.js, Node.js, Express, Tailwind CSS v4, GSAP, Lenis Smooth Scroll, Radix UI, Lucide Icons, Emotion
+- **Practices**: Component-driven development, state management (Zustand), accessible UX (WCAG 2.1 AA), responsive mobile-first design, Core Web Vitals optimization
+
+### 2. Cybersecurity & System Defense
+- **Specializations**: Web application penetration testing, OWASP Top 10 hardening, network packet analysis, security information and event management (SIEM), role-based access control (RBAC), authentication flows (JWT, OAuth)
+- **Tools & Environments**: Wireshark, Linux/Unix system administration, Nmap, Burp Suite, Metasploit, Cryptography implementations
+- **Certifications**:
+  - Google Cybersecurity Professional Certificate (Coursera)
+  - Tata Cybersecurity Virtual Experience Program simulation
+
+### 3. AI Engineering & Intelligent Automation
+- **Orchestration**: Multi-agent workflows, LangChain, Flowise, n8n webhook automation
+- **APIs**: Anthropic Claude API, Google Gemini Live/REST API, OpenAI API
+- **Focus**: Intelligent workflow automation, context grounding, prompt engineering, structured extraction
+
+---
+
+## Detailed Project Portfolio
+
+### Project 1: SK Bloom HR Solutions
+- **Category**: Enterprise SaaS / HR Platform
+- **Live URL**: https://sk-bloom-hr-solutions.netlify.app/
+- **Tech Stack**: React, Node.js, MongoDB, Tailwind CSS, Express
+- **Key Achievements**:
+  - Engineered a multi-tenant RBAC system ensuring strict privilege isolation across departments.
+  - Implemented compliance intelligence and automated immutable audit logging for labor regulations.
+  - Deployed microservices backend on high-availability cloud infrastructure.
+
+### Project 2: SK Enterprises
+- **Category**: Industrial / Commercial Web Architecture
+- **Live URL**: https://www.skenterprisesurapakkam.in/
+- **Tech Stack**: JavaScript, Tailwind CSS, Vite, HTML5
+- **Key Achievements**:
+  - Built an interactive grid console UI for high-voltage electrical component management.
+  - Developed an optimized asset gallery featuring high-resolution industrial transformers.
+  - Delivered 100% SEO scores across Google Lighthouse with sub-second page loads.
+
+### Project 3: ReqWise
+- **Category**: Developer Tooling & Quality Assurance
+- **Live URL**: https://navinadithya.github.io/ReqWise/#/login
+- **Tech Stack**: React, TypeScript, Vite, GitHub Pages
+- **Key Achievements**:
+  - Built a requirements QA platform with versioned requirement objects for strict auditability.
+  - Created role-split dashboards for QA engineers and developers.
+  - Implemented immutable client-side decision audit logs.
+
+### Project 4: Eye Ease
+- **Category**: Healthcare & Accessibility Platform
+- **Live URL**: https://navinadithya.github.io/Eye_Ease_Frontend_Website/
+- **Android Showcase**: https://navinadithya.github.io/Eye_Ease_UIUX_For_Android/
+- **Tech Stack**: React, Vite, Tailwind CSS, Figma
+- **Key Achievements**:
+  - Developed for Dr. Agarwal's Eye Hospital Hackathon.
+  - Engineered high-contrast, screen-reader optimized digital interfaces for vision-impaired patients.
+  - Designed responsive mobile and Android app layouts focusing on seamless medical workflows.
+
+---
+
+## Education & Experience Timeline
+
+- **2024 – 2028**: B.E. in Computer Science and Engineering (Cyber Security), SRM Easwari Engineering College (CGPA: 8.1+)
+- **Present**: Research Internship (Web Development Domain), SRM Easwari Engineering College
+- **2026**: Shipped enterprise platforms (SK Bloom HR Solutions, ReqWise, SK Enterprises)
+- **2025**: Earned Google Cybersecurity Professional Certificate and completed Tata Cybersecurity simulation
