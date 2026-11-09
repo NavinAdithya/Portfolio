@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      if (window.location.hostname === 'navinadithya.github.io') {
+        window.location.replace('https://buildwithnavin.me' + window.location.pathname.replace(/^\/Portfolio\/?/, '/') + window.location.search + window.location.hash);
+      }
+    </script>
     <title>Navin Adithya — Web Developer & Cyber Security Engineer</title>
     <meta name="description" content="Building secure digital products with code, systems, and production-grade execution. Full-stack web developer and cybersecurity engineer shipping real projects." />
     <meta name="keywords" content="Navin Adithya, Web Developer, Cyber Security Engineer, Frontend Developer, React Developer, Full Stack Developer, Penetration Testing, OWASP, Portfolio" />
